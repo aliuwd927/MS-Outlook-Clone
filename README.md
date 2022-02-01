@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# MS-OUTLOOK-CLONE TSX
+
+I was staring at my email while at work and said, " Hey I bet you, I can do this with React "
+
 ## Available Scripts
 
 In the project directory, you can run:
