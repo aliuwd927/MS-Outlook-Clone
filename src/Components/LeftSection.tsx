@@ -1,19 +1,21 @@
 
 
+
+
 function LeftSection(){
  
   return (
-  <div className="left_section_Container">
+  <div className="leftSection_Container">
     <a href="#all" className="dropdown_menu">
     <div className="arrow_up" ></div>
-    <p data-toggle="dropdown" className="dropdown_menu_all">All</p>
+    <p data-toggle="dropdown" className="dropdown_menu_all">Favorites</p>
     </a>
 
     <ul className="dropdown_subMenu"> 
-      <hr /><a href="#inbox" >Inbox</a>
-      <hr /><a href="#draft" >Draft</a>
-      <hr /><a href="#sent">Sent</a>
-      <hr /><a href="#deleted">Deleted</a>
+      <li><a href="#inbox" >Inbox</a></li>
+      <li><a href="#draft" >Draft</a></li>
+      <li><a href="#sent">Sent</a></li>
+      <li><a href="#deleted">Deleted</a></li>
     </ul>
 
   </div>

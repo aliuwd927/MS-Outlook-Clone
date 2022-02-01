@@ -1,9 +1,9 @@
-
+import InboxComponent from "./Sub-Components/Inbox";
 
 function MiddleSection(){
   return (
-    <div className="middle_section_Container">
-      
+    <div className="middleSection_Container">
+      <InboxComponent />
     </div>
   )
 }

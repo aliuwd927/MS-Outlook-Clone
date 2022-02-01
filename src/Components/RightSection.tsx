@@ -2,7 +2,7 @@
 
 function RightSection(){
   return (
-    <div className="right_section_Container">
+    <div className="rightSection_Container">
     </div>
     )
 }
