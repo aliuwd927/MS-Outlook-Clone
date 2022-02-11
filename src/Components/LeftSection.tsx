@@ -1,8 +1,4 @@
-
-
-
-
-function LeftSection(){
+export default function LeftSection(){
  
   return (
   <div className="leftSection_Container">
@@ -22,4 +18,3 @@ function LeftSection(){
   )
 }
 
-export default LeftSection;
