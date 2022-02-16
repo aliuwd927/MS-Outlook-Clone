@@ -1,6 +1,5 @@
-
+import React, { FunctionComponent } from 'react';
 import emailObject from './emails.json';
-import RightSection from './RightSection';
 const {v4: uuidv4} = require('uuid');
 
 
@@ -10,19 +9,19 @@ export interface EMail{
   titleOfEmail:string,
   bodyMessage:string,
   dateOfMessage:string,
-  isAttachment:string,
+  isAttachment:string
 }
 
-export default function MiddleSection(){
+export default function MiddleSection(props: {dispatch:React.Dispatch<any>}){
   return (
     <div className="middleSection_Container">
-      <InboxComponent />
+      <InboxComponent dispatch = {props.dispatch} />
     </div>
   )
 }
 
 
-function InboxComponent(){
+function InboxComponent(props:{dispatch:React.Dispatch<any>}){
   return(
     <table className="table_Container">
       <tbody className="table_body">
@@ -31,12 +30,18 @@ function InboxComponent(){
               <tr
               className="table_row_data" 
               key = {uuidv4()}
-              onClick= {()=>{
+              onClick= {(e)=>{
                 //console.log(uuidv4());
-                /*
-                 Step 1: 
-                
-                 */
+                props.dispatch({
+                  type:'update',
+                  data: {element}
+                })
+                console.log(
+                  props.dispatch({
+                    type:'update',
+                    data: {element}
+                  })
+                )
               }}
               >
                 <td>{element.nameOfSender}</td>

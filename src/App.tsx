@@ -5,19 +5,50 @@ import RightSection from './Components/RightSection';
 import { useReducer } from 'react';
 
 
-//Action Type only needs one type, and its to send to rightsection ONLY
+//An interface for our actions
+interface UpdateAction{
+  type: 'update',
+  data: {element:UpdateState}
+}
+
+//An interface for our state
+export interface UpdateState {
+  profilePicture: string,
+  nameOfSender:string,
+  titleOfEmail:string,
+  bodyMessage:string,
+  dateOfMessage:string,
+  isAttachment:string
+}
 
 export default function App() {
   //do not do this. instead pass data. it is far safer.
- const initialState = <div>Hello World</div>
- 
-  //const [email,dispatch] = useReducer(state,action);
+ const initialData:UpdateState = {
+  profilePicture: '',
+  nameOfSender: '',
+  titleOfEmail: '',
+  bodyMessage: '',
+  dateOfMessage: '',
+  isAttachment: ''
+ };
+
+ function reducer(state: UpdateState,action: UpdateAction){
+  if( action.type === 'update' ){
+    console.log(action.data.element.bodyMessage)
+    return action.data.element
+  }else{
+    return state
+  }
+  
+ }
+
+ const [emailState,dispatch] = useReducer(reducer, initialData) 
 
   return (
     <div className="App">
       <LeftSection />
-      <MiddleSection />
-      <RightSection initial = {initialState}/>
+      <MiddleSection dispatch = {dispatch}/>
+      <RightSection emailState = {emailState} />
     </div>
   );
 }
