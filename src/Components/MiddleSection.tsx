@@ -1,4 +1,3 @@
-import React, { FunctionComponent } from 'react';
 import emailObject from './emails.json';
 const {v4: uuidv4} = require('uuid');
 
@@ -30,7 +29,7 @@ function InboxComponent(props:{dispatch:React.Dispatch<any>}){
               <tr
               className="table_row_data" 
               key = {uuidv4()}
-              onClick= {(e)=>{
+              onClick = {(e)=>{
                 //console.log(uuidv4());
                 props.dispatch({
                   type:'update',

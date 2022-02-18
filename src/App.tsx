@@ -6,7 +6,7 @@ import { useReducer } from 'react';
 
 
 //An interface for our actions
-interface UpdateAction{
+export interface UpdateAction{
   type: 'update',
   data: {element:UpdateState}
 }
@@ -35,14 +35,15 @@ export default function App() {
  function reducer(state: UpdateState,action: UpdateAction){
   if( action.type === 'update' ){
     console.log(action.data.element.bodyMessage)
-    return action.data.element
+    return action.data.element;
   }else{
-    return state
+    return state;
   }
   
  }
 
  const [emailState,dispatch] = useReducer(reducer, initialData) 
+ //const [emailState,dispatch] = useContext(EmailContext)
 
   return (
     <div className="App">
