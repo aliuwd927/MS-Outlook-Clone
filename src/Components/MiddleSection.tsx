@@ -1,4 +1,6 @@
 import emailObject from './emails.json';
+import { useContext } from 'react';
+import { EmailDispatchContext } from './EmailContext';
 const {v4: uuidv4} = require('uuid');
 
 
@@ -11,66 +13,51 @@ export interface EMail{
   isAttachment:string
 }
 
-export default function MiddleSection(props: {dispatch:React.Dispatch<any>}){
-  return (
-    <div className="middleSection_Container">
-      <InboxComponent dispatch = {props.dispatch} />
-    </div>
-  )
-}
 
-
-function InboxComponent(props:{dispatch:React.Dispatch<any>}){
+export const InboxComponent = () =>{
+  const dispatch = useContext(EmailDispatchContext)!;
   return(
-    <table className="table_Container">
-      <tbody className="table_body">
+    <div className="table_Container">
+    
           {emailObject.map((element: EMail) =>{
+            //create a variable that truncates a string of bodyMessage
+            function truncate(input: string, len: number = 30): string {
+              if (input.length <= len) {
+                return input;
+              } else {
+                return input.substring(0, len) + '...';
+              }
+            }
             return(
-              <tr
+              <div
               className="table_row_data" 
               key = {uuidv4()}
               onClick = {(e)=>{
                 //console.log(uuidv4());
-                props.dispatch({
+                dispatch({
                   type:'update',
                   data: {element}
                 })
-                console.log(
-                  props.dispatch({
-                    type:'update',
-                    data: {element}
-                  })
-                )
+                //console.log(dispatch({type:'update',data: {element}}))
               }}
               >
-                <td>{element.nameOfSender}</td>
-                <td><strong>{element.titleOfEmail}</strong></td>
-                <td>{element.bodyMessage}</td>
-             </tr>
+                <div>{element.nameOfSender}</div>
+                <div><strong>{truncate(element.titleOfEmail)}</strong></div>
+                <div>{truncate(element.bodyMessage)}</div>
+                {/* <td>{element.bodyMessage}</td> */}
+             </div>
             )
           })}
-      </tbody>
-    </table>
+    
+    </div>
     )
    }
 
-   //TODO:
-
-  /*
-    Lift state up 
-    Have right section render item, based on UUID
-
-
-
-    dispatch
-
-
-   useContext
-
-
-
-
-
-
-
-  */
+   export default function MiddleSection(){
+  
+    return (
+      <div className="middleSection_Container">
+        <InboxComponent/>
+      </div>
+    )
+  }

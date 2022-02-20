@@ -1,13 +1,13 @@
-import { UpdateState } from "../App"
+import { useContext } from "react";
+import { EmailContext } from "./EmailContext";
 
-
-export default function RightSection(props: {emailState:UpdateState}){
-  const {bodyMessage,nameOfSender,titleOfEmail} = props.emailState;
+export default function RightSection(){
+  const EmailState = useContext(EmailContext) 
   return (
     <div className="rightSection_Container">
-      <p>{nameOfSender}</p>
-      <p>{titleOfEmail}</p>
-      <p>{bodyMessage}</p>
+      <p>{EmailState.nameOfSender}</p>
+      <p>{EmailState.titleOfEmail}</p>
+      <p>{EmailState.bodyMessage}</p>
     </div>
     )
 }

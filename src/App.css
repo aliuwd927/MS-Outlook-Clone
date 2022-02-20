@@ -4,30 +4,42 @@
   box-sizing: border-box;
 }
 
-body {
-  width: 100vw;
-  height: 100vh;
-}
-
 .App {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  width: 100vw;
+  height: 100vh;
+  border: 1px solid red;
 }
 
 .leftSection_Container {
   width: 10%;
+  height: 100%;
 }
 
 .middleSection_Container {
   width: 40%;
+  height: 100%;
 }
 
 .rightSection_Container {
   width: 50%;
+  height: 100%;
 }
 
 .dropdown_subMenu {
   text-decoration: none;
+}
+
+.table_Container {
+  display: grid;
+  border: 1px solid blue;
+}
+
+.table_row_data {
+  grid-template-rows: ;
+  grid-template-columns: ;
+  border: 1px dotted black;
 }

@@ -2,7 +2,30 @@ import './App.css';
 import LeftSection from './Components/LeftSection';
 import MiddleSection from './Components/MiddleSection';
 import RightSection from './Components/RightSection';
-import { useReducer } from 'react';
+import {EmailProvider} from './Components/EmailContext';
+
+
+
+export default function App() {
+
+  return (
+    
+    <div className="App">
+      <EmailProvider>
+          <LeftSection />
+          <MiddleSection />
+          <RightSection />
+      </EmailProvider>
+    </div>
+   
+  );
+}
+
+
+
+/*
+
+Use this to revert
 
 
 //An interface for our actions
@@ -55,3 +78,12 @@ export default function App() {
 }
 
 
+
+
+
+
+
+
+
+
+*/
