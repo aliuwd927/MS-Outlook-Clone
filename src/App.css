@@ -11,7 +11,6 @@
   align-items: center;
   width: 100vw;
   height: 100vh;
-  border: 1px solid red;
 }
 
 .leftSection_Container {
@@ -35,11 +34,8 @@
 
 .table_Container {
   display: grid;
-  border: 1px solid blue;
+  gap: 15px 0;
 }
 
 .table_row_data {
-  grid-template-rows: ;
-  grid-template-columns: ;
-  border: 1px dotted black;
 }

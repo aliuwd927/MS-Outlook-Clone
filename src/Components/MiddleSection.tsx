@@ -1,6 +1,7 @@
 import emailObject from './emails.json';
 import { useContext } from 'react';
 import { EmailDispatchContext } from './EmailContext';
+import { SearchBarInput } from './SearchBarInput';
 const {v4: uuidv4} = require('uuid');
 
 
@@ -57,6 +58,7 @@ export const InboxComponent = () =>{
   
     return (
       <div className="middleSection_Container">
+        <SearchBarInput type='text' value='' placeholder='Search'/>
         <InboxComponent/>
       </div>
     )
