@@ -15,6 +15,7 @@ export const SearchBarInput: FC<SearchProp> = ({value="",placeholder})=>{
             const newValue = event.target.value
             console.log(newValue);
           }}
-          ></input>
+          >
+          </input>
   )
 }
