@@ -46,3 +46,37 @@ export const InboxComponent = () =>{
     </div>
     )
    }
+
+
+/*
+
+--- Old Code To Revert Back To If Something Goes Terribly Wrong ---
+
+<div className="table_Container">
+          {emailObject.map((element: EMail) =>{
+            function truncate(input: string, len: number = 30): string {
+              if (input.length <= len) {
+                return input;
+              } else {
+                return input.substring(0, len) + '...';
+              }
+            }
+            return(
+              <div
+              className="table_row_data" 
+              key = {uuidv4()}
+              onClick = {(e)=>{
+                dispatch({
+                  type:'update',
+                  data: {element}
+                })
+              }}
+              >
+                <div>{element.nameOfSender}</div>
+                <div><strong>{truncate(element.titleOfEmail)}</strong></div>
+                <div>{truncate(element.bodyMessage)}</div>
+             </div>
+            )
+          })}
+    </div>
+*/
