@@ -1,20 +1,28 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 
  export interface SearchProp{
   children?: React.ReactNode,
   type?: 'text',
-  value?: string | number,
   placeholder?: string,
+  setSearchBarValue: React.Dispatch<React.SetStateAction<string>>
 }
 
-export const SearchBarInput: FC<SearchProp> = ({value="",placeholder})=>{
+
+export const SearchBarInput: FC<SearchProp> = ({placeholder,setSearchBarValue})=>{
+
+  const [searchValue,setSearchValue] = useState('');
+
+  function handleChange(e:string){
+    setSearchValue(e)
+    setSearchBarValue(e);
+  }
+
   return (
     <input 
-      value={value}
+      value={searchValue}
       placeholder={placeholder}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-      const newValue = event.target.value
-      console.log(newValue);
+        handleChange(event.target.value)
       }}
       >
       </input>
@@ -83,6 +91,12 @@ we can use something like this...
             )
           })
     }
+
+
+*/
+
+/*
+    Do I Use Reducer/Context or do I just life state up
 
 
 */
