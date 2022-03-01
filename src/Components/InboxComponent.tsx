@@ -73,6 +73,23 @@ export const InboxComponent = (props: {searchBarValue:string}) =>{
           },[])
     }
 
+
+
+
+
+
+    Example: 
+    ReactDOM.render(
+      <select>
+          {[...Array(24).keys()].reduce((acc, item, index) => [
+            ...acc, 
+              <option key={index} value={item}>{item}</option>
+            ], [])}
+      </select>
+, document.getElementById("root"));
+
+https://stackoverflow.com/questions/52364702/react-reduce-within-jsx-not-rendering
+
 */
 
 
