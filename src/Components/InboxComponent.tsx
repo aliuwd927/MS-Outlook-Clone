@@ -21,26 +21,6 @@ export const InboxComponent = (props: {searchBarValue:string}) =>{
   return(
     <div className="table_Container">
          {emails.reduce((accumulator,current)=>{
-            //console.log([...accumulator,current.bodyMessage])
-            //we put ! bc when we do ***Console this on dev tools ***
-            //"SOMETHING".includes("") ==> This equates to true because of the ""
-            //!"SEOMTHING".includes("") ==> Changes the value from true to false
-            /**
-             if(true){
-               //do something
-             }else{
-               //do something else if false
-             }
-             */
-
-             /*
-              Current Action:
-                if(currentStateMent is false bc of !, when it is true THEN we fire the return){
-                  return *FIRING BC TRUE*
-                }else{
-                  return *FIRING BC FALSE*
-                }
-             */
               if(!current.bodyMessage.toLocaleLowerCase().includes(searchBarValue.toLocaleLowerCase())){
                 return accumulator
               }else{
@@ -64,6 +44,94 @@ export const InboxComponent = (props: {searchBarValue:string}) =>{
     </div>
     )
    }
+
+
+
+
+
+
+
+   
+
+/*
+
+export const InboxComponent = (props: {searchBarValue:string}) =>{
+  const dispatch = useContext(EmailDispatchContext)!;
+  const {searchBarValue} = props;
+  return(
+    <div className="table_Container">
+         {emails.reduce((accumulator,current)=>{
+            //console.log([...accumulator,current.bodyMessage])
+            //we put ! bc when we do ***Console this on dev tools ***
+            //"SOMETHING".includes("") ==> This equates to true because of the ""
+            //!"SEOMTHING".includes("") ==> Changes the value from true to false
+
+            //////
+             if(true){
+               //do something
+             }else{
+               //do something else if false
+             }
+            ///////
+
+             //////
+              Current Action:
+                if(currentStateMent is false bc of !, when it is true THEN we fire the return){
+                  return *FIRING BC TRUE*
+                }else{
+                  return *FIRING BC FALSE*
+                }
+            ////////
+
+                if(!current.bodyMessage.toLocaleLowerCase().includes(searchBarValue.toLocaleLowerCase())){
+                  return accumulator
+                }else{
+                  return [...accumulator, 
+                    <div 
+                    key={current.id}
+                    className="table_row_data"
+                    onClick = {(e)=>{
+                      dispatch({
+                        type:'update',
+                        data: {element: current}
+                      })
+                    }} >
+                      <div>{current.nameOfSender}</div>
+                      <div>{current.titleOfEmail}</div>
+                      <div>{current.bodyMessage}</div>
+                    </div>]
+                }
+            },[] as JSX.Element[])
+      }
+      </div>
+      )
+     }
+  
+
+
+
+
+
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
