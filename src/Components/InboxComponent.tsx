@@ -19,7 +19,7 @@ export const InboxComponent = (props: {searchBarValue:string}) =>{
   const {searchBarValue} = props;
   return(
     <div className="table_Container">
-          {emailObject
+         {emailObject
       .filter((element: EMail) => {
         //This below code below works bc the includes returns true / false value and keeps the true value.
         return element.bodyMessage.toLocaleLowerCase().includes(searchBarValue.toLocaleLowerCase());
@@ -69,26 +69,11 @@ export const InboxComponent = (props: {searchBarValue:string}) =>{
 
 {emailObject.reduce<string[]>((previousValue,currentValue)=>{
             console.log([...previousValue,currentValue])
-            return [...previousValue, currentValue.titleOfEmail]
+            return [...previousValue, currentValue]
           },[])
     }
 
 
-
-
-
-
-    Example: 
-    ReactDOM.render(
-      <select>
-          {[...Array(24).keys()].reduce((acc, item, index) => [
-            ...acc, 
-              <option key={index} value={item}>{item}</option>
-            ], [])}
-      </select>
-, document.getElementById("root"));
-
-https://stackoverflow.com/questions/52364702/react-reduce-within-jsx-not-rendering
 
 */
 
@@ -227,5 +212,8 @@ export const InboxComponent = (props: {searchBarValue:string}) =>{
     </div>
     )
    }
+
+
+   https://stackoverflow.com/questions/52364702/react-reduce-within-jsx-not-rendering
 
 */
