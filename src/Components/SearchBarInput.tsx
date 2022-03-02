@@ -24,8 +24,8 @@ export const SearchBarInput: FC<SearchProp> = ({placeholder,setSearchBarValue})=
       onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
         handleChange(event.target.value)
       }}
-      >
-      </input>
+        />
+      
   )
 }
 

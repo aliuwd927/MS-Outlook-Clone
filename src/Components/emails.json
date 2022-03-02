@@ -1,5 +1,6 @@
 [
   { 
+    "id":"1",
     "profilePicture":"",
     "nameOfSender":"Kairon Shea",
     "titleOfEmail":"Microsoft and Apple strategic partnership",
@@ -8,6 +9,7 @@
     "isAttachment":""
   },
    { 
+    "id":"2",
     "profilePicture":"",
     "nameOfSender":"Dianna Hackett",
     "titleOfEmail":"Regarding your Department needs",
@@ -16,6 +18,7 @@
     "isAttachment":""
   },
    { 
+    "id":"3",
     "profilePicture":"",
     "nameOfSender":"Margo Brewer",
     "titleOfEmail":"Andy, can you point me in the right direction?",
@@ -24,6 +27,7 @@
     "isAttachment":""
   },
    { 
+    "id":"4",
     "profilePicture":"",
     "nameOfSender":"Keelan Griffin",
     "titleOfEmail":"Can you spare 5 minutes, Andy?",
@@ -32,6 +36,7 @@
     "isAttachment":""
   },
   {
+    "id":"5",
     "profilePicture":"",
     "nameOfSender":"Odin Albert",
     "titleOfEmail":"Microsoft and Apple strategic partnership",
@@ -40,6 +45,7 @@
     "isAttachment":""
   },
   {
+    "id":"6",
     "profilePicture":"",
     "nameOfSender":"Aedan Puckett",
     "titleOfEmail":"Greetings, From Hulu",
@@ -48,6 +54,7 @@
     "isAttachment":""
   },
   {
+    "id":"7",
     "profilePicture":"",
     "nameOfSender":"Jaheim Emery",
     "titleOfEmail":"Andy - any thoughts?",

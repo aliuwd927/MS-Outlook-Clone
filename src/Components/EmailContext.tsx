@@ -9,6 +9,7 @@ export interface UpdateAction{
 
 //An interface for our state
 export interface UpdateState {
+  id: string,
   profilePicture: string,
   nameOfSender:string,
   titleOfEmail:string,
@@ -22,6 +23,7 @@ interface PostProviderProps {
 }
 
 const initialData:UpdateState = {
+  id:'',
   profilePicture: '',
   nameOfSender: '',
   titleOfEmail: '',
@@ -54,3 +56,11 @@ export function EmailProvider({children}:PostProviderProps){
  
 
 
+/*
+
+Type '{ current: { id: number; profilePicture: string; nameOfSender: string; titleOfEmail: string; bodyMessage: string; dateOfMessage: string; isAttachment: string; }; }' 
+      is not assignable to type '{ element: UpdateState; }'.
+  Object literal may only specify known properties, and 'current' does not exist in type '{ element: UpdateState; }'.ts(2322)
+EmailContext.tsx(7, 3): The expected type comes from property 'data' which is declared here on type 'UpdateAction'
+
+*/
