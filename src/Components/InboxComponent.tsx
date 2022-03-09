@@ -1,7 +1,7 @@
 import emails from './emails.json';
 import { useContext } from 'react';
 import { EmailDispatchContext } from './EmailContext';
-const {v4: uuidv4} = require('uuid');
+//const {v4: uuidv4} = require('uuid');
 
 
 export interface EMail{
