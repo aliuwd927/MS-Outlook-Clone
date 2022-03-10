@@ -1,4 +1,5 @@
 import './App.css';
+import {Routes,Route,Link, Outlet} from 'react-router-dom';
 import LeftSection from './Components/LeftSection';
 import MiddleSection from './Components/MiddleSection';
 import RightSection from './Components/RightSection';
@@ -9,19 +10,43 @@ import {EmailProvider} from './Components/EmailContext';
 export default function App() {
 
   return (
-    
     <div className="App">
-      <EmailProvider>
-          <LeftSection />
-          <MiddleSection />
-          <RightSection />
-      </EmailProvider>
+        <EmailProvider>
+            <LeftSection />
+            <MiddleSection>
+              <Outlet/>
+            </MiddleSection>
+            <RightSection />
+        </EmailProvider>
     </div>
    
   );
 }
 
 
+
+/*
+ <div className="App">
+      <EmailProvider>
+        <LinkProvider>
+          <LeftSection />
+          <MiddleSection />
+          <RightSection />
+        </LinkProvider>
+      </EmailProvider>
+    </div>
+ 
+ */
+
+
+
+
+
+
+
+
+
+ 
 
 /*
 
