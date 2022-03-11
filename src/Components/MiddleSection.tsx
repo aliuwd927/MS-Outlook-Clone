@@ -1,19 +1,48 @@
-import { useState } from "react";
+
 import { PropsWithChildren } from "react";
-import { InboxComponent } from "./InboxComponent";
 import { SearchBarInput } from "./SearchBarInput";
-import { Routes,Route,Outlet,Link } from "react-router-dom";
-import DeletedComponent from "./DeletedComponent";
+
 
 export default function MiddleSection(props:PropsWithChildren<{}>){
-  const [searchBarValue, setSearchBarValue] = useState('');
+ 
     return (
       <div className="middleSection_Container">
-        <SearchBarInput type='text' placeholder='Search' setSearchBarValue={setSearchBarValue} />
-        {props.children}
+        <SearchBarInput type='text' placeholder='Search' />
+        {props.children }
       </div>
     )
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*

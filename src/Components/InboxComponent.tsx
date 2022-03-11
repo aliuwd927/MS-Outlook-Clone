@@ -1,6 +1,6 @@
 import emails from './emails.json';
-import { useContext } from 'react';
-import { EmailDispatchContext } from './EmailContext';
+import {righSectionDispatch} from './zustand';
+import {useStore} from './zustand2';
 //const {v4: uuidv4} = require('uuid');
 
 
@@ -11,13 +11,14 @@ export interface EMail{
   titleOfEmail:string,
   bodyMessage:string,
   dateOfMessage:string,
-  isAttachment:string
+  isAttachment:string,
 }
 
 
-export const InboxComponent = (props: {searchBarValue:string}) =>{
-  const dispatch = useContext(EmailDispatchContext)!;
-  const {searchBarValue} = props;
+export const InboxComponent = () =>{
+  //const dispatch = useContext(EmailDispatchContext)!;
+  const dispatchState = righSectionDispatch(state => state.emailDispatch);
+  const searchBarValue = useStore(state => state.searchState);
   return(
     <div className="table_Container">
          {emails.reduce((accumulator,current)=>{
@@ -28,11 +29,14 @@ export const InboxComponent = (props: {searchBarValue:string}) =>{
                   <div 
                   key={current.id}
                   className="table_row_data"
-                  onClick = {(e)=>{
-                    dispatch({
-                      type:'update',
-                      data: {element: current}
-                    })
+                  onClick = {()=>{
+                    // dispatch({
+                    //   type:'update',
+                    //   data: {element: current}
+                    // })
+                    dispatchState(current);
+                    
+                    
                   }} >
                     <div>{current.nameOfSender}</div>
                     <div>{current.titleOfEmail}</div>

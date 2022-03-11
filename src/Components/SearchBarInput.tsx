@@ -1,28 +1,25 @@
-import React, {FC, useState} from 'react';
+import React, {FC} from 'react';
+import {useStore} from './zustand2';
+import shallow from 'zustand/shallow'
 
  export interface SearchProp{
   children?: React.ReactNode,
   type?: 'text',
-  placeholder?: string,
-  setSearchBarValue: React.Dispatch<React.SetStateAction<string>>
+  placeholder:string,
 }
 
 
-export const SearchBarInput: FC<SearchProp> = ({placeholder,setSearchBarValue})=>{
-
-  const [searchValue,setSearchValue] = useState('');
-
-  function handleChange(e:string){
-    setSearchValue(e)
-    setSearchBarValue(e);
-  }
+export const SearchBarInput: FC<SearchProp> = ()=>{
+  const {searchDispatch,searchValue,test} = useStore(state => ({searchDispatch: state.searchDispatch, searchValue: state.searchState, test:state.test}),shallow);
+ 
 
   return (
     <input 
       value={searchValue}
-      placeholder={placeholder}
+      placeholder='Search'
       onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-        handleChange(event.target.value)
+        searchDispatch(event.target.value)
+        test(event.target.value)
       }}
         />
       
@@ -30,6 +27,10 @@ export const SearchBarInput: FC<SearchProp> = ({placeholder,setSearchBarValue})=
 }
 
 /*
+https://www.youtube.com/watch?v=MpdFj8MEuJA
+
+
+
 
 Question: What will the search bar input do?
 

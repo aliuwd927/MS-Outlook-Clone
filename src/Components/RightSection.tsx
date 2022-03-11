@@ -1,13 +1,12 @@
-import { useContext } from "react";
-import { EmailContext } from "./EmailContext";
+import {righSectionDispatch} from './zustand';
 
 export default function RightSection(){
-  const EmailState = useContext(EmailContext);
+  const {nameOfSender, titleOfEmail,bodyMessage} = righSectionDispatch(state =>state)
   return (
     <div className="rightSection_Container">
-      <p>{EmailState.nameOfSender}</p>
-      <p>{EmailState.titleOfEmail}</p>
-      <p>{EmailState.bodyMessage}</p>
+      <p>{nameOfSender}</p>
+      <p>{titleOfEmail}</p>
+      <p>{bodyMessage}</p>
     </div>
     )
 }
