@@ -1,7 +1,5 @@
 import create from 'zustand';
 
-
-
 //An interface for our state
 export interface UpdateState {
   id: string,
@@ -11,8 +9,11 @@ export interface UpdateState {
   bodyMessage:string,
   dateOfMessage:string,
   isAttachment:string,
-  emailDispatch:any,
-  emailDispatchReset:any,
+  }
+
+  export interface Actions {
+  emailDispatch:(current:UpdateState)=>void,
+  emailDispatchReset:()=>void,
   }
 
   export interface SearchBarInput{
@@ -21,7 +22,7 @@ export interface UpdateState {
   }
   
 //rightSectionDispath
- export const rightSectionDispatch = create<UpdateState>((set)=>({
+ export const rightSectionDispatch = create<UpdateState & Actions>((set)=>({
    id:'',
    profilePicture:'',
    nameOfSender:'',
@@ -29,7 +30,7 @@ export interface UpdateState {
    bodyMessage:'',
    dateOfMessage:'',
    isAttachment:'',
-   emailDispatch:(current:UpdateState)=>set(()=>({
+   emailDispatch:(current)=>set(()=>({
     id: current.id,
     profilePicture: current.profilePicture,
     nameOfSender: current.nameOfSender,

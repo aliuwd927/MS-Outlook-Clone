@@ -1,6 +1,6 @@
-import { useState } from 'react';
 import emails from './emails.json';
 import {rightSectionDispatch, useStore} from './zustand';
+import { UpdateState } from './zustand';
 //const {v4: uuidv4} = require('uuid');
 
 export interface EMail{
@@ -18,9 +18,6 @@ export interface EMail{
 export const InboxComponent = () =>{
   const dispatchState = rightSectionDispatch(state => state.emailDispatch);
   const searchBarValue = useStore(state => state.searchState);
-
-
- 
   return(
     <div className="table_Container">
          {emails.reduce((accumulator,current)=>{
@@ -74,6 +71,13 @@ export const InboxComponent = () =>{
  */
 
 
+/**
+ * 
+ 
+
+const test = (state)=>(state.fruid[id],id)
+
+ */
 
 
 
