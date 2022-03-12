@@ -18,7 +18,6 @@ export interface EMail{
 export const InboxComponent = () =>{
   const dispatchState = rightSectionDispatch(state => state.emailDispatch);
   const searchBarValue = useStore(state => state.searchState);
-  const [isShown, setisShown] = useState(false)
 
 
  
@@ -42,16 +41,14 @@ export const InboxComponent = () =>{
                     <div>{current.titleOfEmail}</div>
                     <div>{current.bodyMessage}</div>
                     </div>
-                    <div className='email_buttons_Container'
-                      onMouseEnter={()=>setisShown(true)}
-                      onMouseLeave={()=>setisShown(false)}
-                    >
-                      {isShown ? 
+                    <div className='email_buttons_Container'>
+                      
                       <div className='email_buttons'>
                       <button>Reply Email</button>
                       <button>Delete Email</button>
                       </div>
-                       : null}
+                       
+
                     </div>
                   </div>]
               }
@@ -70,7 +67,11 @@ export const InboxComponent = () =>{
 
 
 
-
+/**
+ * 
+ * KidQueb: one fix is to forego the JS to toggle visibility and instead go plain css. 
+ * .email_buttons_Container { opacity: 0 } .table_row_data:hover .email_buttons_Container {.opacity: 1 }
+ */
 
 
 

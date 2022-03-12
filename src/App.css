@@ -48,6 +48,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  border: 1px solid green;
 }
 
 .email_buttons_Container {
@@ -56,9 +57,16 @@
   justify-content: center;
   height: 100%;
   width: 20%;
+  opacity: 0;
+  border: 1px solid blue;
 }
 
 .email_buttons {
   display: flex;
   flex-direction: column;
+  border: 1px solid red;
+}
+
+.table_row_data:hover .email_buttons_Container {
+  opacity: 1;
 }
