@@ -1,6 +1,7 @@
 import create from 'zustand';
 
 
+
 //An interface for our state
 export interface UpdateState {
   id: string,
@@ -11,10 +12,16 @@ export interface UpdateState {
   dateOfMessage:string,
   isAttachment:string,
   emailDispatch:any,
-
+  emailDispatchReset:any,
   }
 
- export const righSectionDispatch = create<UpdateState>((set)=>({
+  export interface SearchBarInput{
+    searchState:string,
+    searchDispatch:any,
+  }
+  
+//rightSectionDispath
+ export const rightSectionDispatch = create<UpdateState>((set)=>({
    id:'',
    profilePicture:'',
    nameOfSender:'',
@@ -30,21 +37,24 @@ export interface UpdateState {
     bodyMessage: current.bodyMessage,
     dateOfMessage: current.dateOfMessage,
     isAttachment: current.isAttachment,
+   })),
+   emailDispatchReset: ()=>set(()=>({
+    id:'',
+    profilePicture:'',
+    nameOfSender:'',
+    titleOfEmail:'',
+    bodyMessage:'',
+    dateOfMessage:'',
+    isAttachment:'',
    }))
-  
+
  }))
 
-
- export interface SearchBarInput{
-  searchState:string,
-  searchDispatch:any,
-  test:any,
-}
-
+//useStore
 export const useStore = create<SearchBarInput>((set,get)=>({
 searchState:'',
 searchDispatch:(input:string)=>set(()=>({
   searchState: input,
-})),
-test:()=>console.log(get().searchState)
+}))
+
 }))

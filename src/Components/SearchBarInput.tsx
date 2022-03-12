@@ -10,7 +10,7 @@ import shallow from 'zustand/shallow'
 
 
 export const SearchBarInput: FC<SearchProp> = ()=>{
-  const {searchDispatch,searchValue,test} = useStore(state => ({searchDispatch: state.searchDispatch, searchValue: state.searchState, test:state.test}),shallow);
+  const {searchDispatch,searchValue} = useStore(state => ({searchDispatch: state.searchDispatch, searchValue: state.searchState}),shallow);
  
 
   return (
@@ -19,10 +19,8 @@ export const SearchBarInput: FC<SearchProp> = ()=>{
       placeholder='Search'
       onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
         searchDispatch(event.target.value)
-        test(event.target.value)
       }}
         />
-      
   )
 }
 

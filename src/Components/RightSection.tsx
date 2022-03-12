@@ -1,7 +1,7 @@
-import {righSectionDispatch} from './zustand';
+import {rightSectionDispatch} from './zustand';
 
 export default function RightSection(){
-  const {nameOfSender, titleOfEmail,bodyMessage} = righSectionDispatch(state =>state)
+  const {nameOfSender, titleOfEmail,bodyMessage} = rightSectionDispatch(state =>state)
   return (
     <div className="rightSection_Container">
       <p>{nameOfSender}</p>

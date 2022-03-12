@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom';
+import {rightSectionDispatch} from './zustand';
 export default function LeftSection(){
- 
+ const deleteComponentReset = rightSectionDispatch(state => state.emailDispatchReset);
   return (
   <div className="leftSection_Container">
     <a href="#all" className="dropdown_menu">
@@ -12,7 +13,10 @@ export default function LeftSection(){
       <li><Link to='/inboxPage'>Inbox</Link></li>
       <li><a href="#draft" >Draft</a></li>
       <li><a href="#sent">Sent</a></li>
-      <li><Link to='/deletePage'>Deleted</Link></li>
+      <li>
+        <Link to='/deletePage'
+          onClick={()=>deleteComponentReset()}
+        >Deleted</Link></li>
     </ul>
 
   </div>

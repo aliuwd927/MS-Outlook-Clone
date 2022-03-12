@@ -1,7 +1,6 @@
 import emails from './emails.json';
-import {righSectionDispatch, useStore} from './zustand';
+import {rightSectionDispatch, useStore} from './zustand';
 //const {v4: uuidv4} = require('uuid');
-
 
 export interface EMail{
   id:string,
@@ -14,10 +13,11 @@ export interface EMail{
 }
 
 
+
 export const InboxComponent = () =>{
-  //const dispatch = useContext(EmailDispatchContext)!;
-  const dispatchState = righSectionDispatch(state => state.emailDispatch);
+  const dispatchState = rightSectionDispatch(state => state.emailDispatch);
   const searchBarValue = useStore(state => state.searchState);
+ 
   return(
     <div className="table_Container">
          {emails.reduce((accumulator,current)=>{
@@ -29,12 +29,7 @@ export const InboxComponent = () =>{
                   key={current.id}
                   className="table_row_data"
                   onClick = {()=>{
-                    // dispatch({
-                    //   type:'update',
-                    //   data: {element: current}
-                    // })
                     dispatchState(current);
-                    
                     
                   }} >
                     <div>{current.nameOfSender}</div>
