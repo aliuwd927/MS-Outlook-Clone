@@ -37,3 +37,28 @@
   display: grid;
   gap: 15px 0;
 }
+
+.table_row_email {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+}
+
+.table_row_data {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.email_buttons_Container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  width: 20%;
+}
+
+.email_buttons {
+  display: flex;
+  flex-direction: column;
+}

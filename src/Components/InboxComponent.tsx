@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import emails from './emails.json';
 import {rightSectionDispatch, useStore} from './zustand';
 //const {v4: uuidv4} = require('uuid');
@@ -17,6 +18,9 @@ export interface EMail{
 export const InboxComponent = () =>{
   const dispatchState = rightSectionDispatch(state => state.emailDispatch);
   const searchBarValue = useStore(state => state.searchState);
+  const [isShown, setisShown] = useState(false)
+
+
  
   return(
     <div className="table_Container">
@@ -28,13 +32,27 @@ export const InboxComponent = () =>{
                   <div 
                   key={current.id}
                   className="table_row_data"
-                  onClick = {()=>{
-                    dispatchState(current);
-                    
-                  }} >
+                 >
+                    <div className="table_row_email"
+                     onClick = {()=>{
+                      dispatchState(current);
+                      
+                    }} >
                     <div>{current.nameOfSender}</div>
                     <div>{current.titleOfEmail}</div>
                     <div>{current.bodyMessage}</div>
+                    </div>
+                    <div className='email_buttons_Container'
+                      onMouseEnter={()=>setisShown(true)}
+                      onMouseLeave={()=>setisShown(false)}
+                    >
+                      {isShown ? 
+                      <div className='email_buttons'>
+                      <button>Reply Email</button>
+                      <button>Delete Email</button>
+                      </div>
+                       : null}
+                    </div>
                   </div>]
               }
           },[] as JSX.Element[])
@@ -42,6 +60,32 @@ export const InboxComponent = () =>{
     </div>
     )
    }
+
+
+
+/**
+ * Set it so that the hovered email gets the buttons
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

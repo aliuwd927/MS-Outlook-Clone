@@ -38,7 +38,7 @@ export interface UpdateState {
     dateOfMessage: current.dateOfMessage,
     isAttachment: current.isAttachment,
    })),
-   emailDispatchReset: ()=>set(()=>({
+   emailDispatchReset: ()=>set(({
     id:'',
     profilePicture:'',
     nameOfSender:'',
