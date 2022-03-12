@@ -8,3 +8,6 @@ export default function DeletedComponent(){
     </div>
   )
 }
+
+
+//https://react-icons.github.io/react-icons/

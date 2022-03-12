@@ -1,6 +1,5 @@
 import emails from './emails.json';
-import {righSectionDispatch} from './zustand';
-import {useStore} from './zustand2';
+import {righSectionDispatch, useStore} from './zustand';
 //const {v4: uuidv4} = require('uuid');
 
 

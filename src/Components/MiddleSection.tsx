@@ -1,4 +1,3 @@
-
 import { PropsWithChildren } from "react";
 import { SearchBarInput } from "./SearchBarInput";
 

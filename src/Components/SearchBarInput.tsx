@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {useStore} from './zustand2';
+import {useStore} from './zustand';
 import shallow from 'zustand/shallow'
 
  export interface SearchProp{
