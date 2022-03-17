@@ -20,8 +20,12 @@ export interface UpdateState {
     searchState:string,
     searchDispatch:any,
   }
+
+  export interface DeleteMapping{
+
+  }
   
-//rightSectionDispath
+//RightSecond Email Dispatch Updating State
  export const rightSectionDispatch = create<UpdateState & Actions>((set)=>({
    id:'',
    profilePicture:'',
@@ -56,6 +60,12 @@ export const useStore = create<SearchBarInput>((set,get)=>({
 searchState:'',
 searchDispatch:(input:string)=>set(()=>({
   searchState: input,
+  }))
+
+
 }))
 
+export const delMapping = create<DeleteMapping>((set,get)=>({
+// Lifting Delete State Up
+  deleteState: '',
 }))
