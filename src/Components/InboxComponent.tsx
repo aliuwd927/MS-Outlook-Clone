@@ -1,6 +1,5 @@
 import emails from './emails.json';
 import {rightSectionDispatch, useStore} from './zustand';
-import { UpdateState } from './zustand';
 //const {v4: uuidv4} = require('uuid');
 
 export interface EMail{
@@ -41,8 +40,12 @@ export const InboxComponent = () =>{
                     <div className='email_buttons_Container'>
                       
                       <div className='email_buttons'>
-                      <button>Reply Email</button>
-                      <button>Delete Email</button>
+                      <button
+                       onClick={()=>alert('Reply Email')}
+                       >Reply Email</button>
+                      <button
+                       onClick={()=>console.log(current)}
+                        >Delete Email</button>
                       </div>
                        
 
