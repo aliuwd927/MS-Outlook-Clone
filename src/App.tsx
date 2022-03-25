@@ -1,26 +1,20 @@
-import './App.css';
-import {Outlet} from 'react-router-dom';
-import LeftSection from './Components/LeftSection';
-import MiddleSection from './Components/MiddleSection';
-import RightSection from './Components/RightSection';
-
-
+import "./App.css";
+import { Outlet } from "react-router-dom";
+import LeftSection from "./Components/LeftSection";
+import MiddleSection from "./Components/MiddleSection";
+import RightSection from "./Components/RightSection";
 
 export default function App() {
-
   return (
     <div className="App">
-            <LeftSection />
-            <MiddleSection>
-              <Outlet/>
-            </MiddleSection>
-            <RightSection />  
+      <LeftSection />
+      <MiddleSection>
+        <Outlet />
+      </MiddleSection>
+      <RightSection />
     </div>
-   
   );
 }
-
-
 
 /*
  <div className="App">
@@ -34,16 +28,6 @@ export default function App() {
     </div>
  
  */
-
-
-
-
-
-
-
-
-
- 
 
 /*
 

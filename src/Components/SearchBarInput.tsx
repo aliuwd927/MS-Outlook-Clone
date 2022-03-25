@@ -1,28 +1,32 @@
-import React, {FC} from 'react';
-import {useStore} from './zustand';
-import shallow from 'zustand/shallow'
+import React, { FC } from "react";
+import { useStore } from "./zustand";
+import shallow from "zustand/shallow";
 
- export interface SearchProp{
-  children?: React.ReactNode,
-  type?: 'text',
-  placeholder:string,
+export interface SearchProp {
+  children?: React.ReactNode;
+  type?: "text";
+  placeholder: string;
 }
 
-
-export const SearchBarInput: FC<SearchProp> = ()=>{
-  const {searchDispatch,searchValue} = useStore(state => ({searchDispatch: state.searchDispatch, searchValue: state.searchState}),shallow);
- 
+export const SearchBarInput: FC<SearchProp> = () => {
+  const { searchDispatch, searchValue } = useStore(
+    (state) => ({
+      searchDispatch: state.searchDispatch,
+      searchValue: state.searchState,
+    }),
+    shallow
+  );
 
   return (
-    <input 
+    <input
       value={searchValue}
-      placeholder='Search'
+      placeholder="Search"
       onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-        searchDispatch(event.target.value)
+        searchDispatch(event.target.value);
       }}
-        />
-  )
-}
+    />
+  );
+};
 
 /*
 https://www.youtube.com/watch?v=MpdFj8MEuJA
@@ -53,7 +57,6 @@ we can use something like this...
       //if none, return standar email
     })
 */
-
 
 /*
     {emailObject

@@ -1,28 +1,37 @@
-import {Link} from 'react-router-dom';
-import {rightSectionDispatch} from './zustand';
-export default function LeftSection(){
- const deleteComponentReset = rightSectionDispatch(state => state.emailDispatchReset);
+import { Link } from "react-router-dom";
+import { rightSectionDispatch } from "./zustand";
+export default function LeftSection() {
+  const deleteComponentReset = rightSectionDispatch(
+    (state) => state.emailDispatchReset
+  );
   return (
-  <div className="leftSection_Container">
-    <a href="#all" className="dropdown_menu">
-    <div className="arrow_up" ></div>
-    <p data-toggle="dropdown" className="dropdown_menu_all">Favorites</p>
-    </a>
+    <div className="leftSection_Container">
+      <a href="#all" className="dropdown_menu">
+        <div className="arrow_up"></div>
+        <p data-toggle="dropdown" className="dropdown_menu_all">
+          Favorites
+        </p>
+      </a>
 
-    <ul className="dropdown_subMenu"> 
-      <li><Link to='/inboxPage'>Inbox</Link></li>
-      <li><a href="#draft" >Draft</a></li>
-      <li><a href="#sent">Sent</a></li>
-      <li>
-        <Link to='/deletePage'
-          onClick={()=>deleteComponentReset()}
-        >Deleted</Link></li>
-    </ul>
-
-  </div>
-  )
+      <ul className="dropdown_subMenu">
+        <li>
+          <Link to="/inboxPage">Inbox</Link>
+        </li>
+        <li>
+          <a href="#draft">Draft</a>
+        </li>
+        <li>
+          <a href="#sent">Sent</a>
+        </li>
+        <li>
+          <Link to="/deletePage" onClick={() => deleteComponentReset()}>
+            Deleted
+          </Link>
+        </li>
+      </ul>
+    </div>
+  );
 }
-
 
 /*
       ---Plan of Attack---
@@ -43,10 +52,6 @@ export default function LeftSection(){
   https://stackblitz.com/edit/react-yktq3p?file=src%2Findex.js
   https://codesandbox.io/s/divine-snow-t8t8hr
  */
-
-
-
-
 
 /*
 
@@ -80,4 +85,3 @@ export default function LeftSection(){
 
 
  */
-

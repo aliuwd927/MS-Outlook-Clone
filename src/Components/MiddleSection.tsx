@@ -1,48 +1,14 @@
 import { PropsWithChildren } from "react";
 import { SearchBarInput } from "./SearchBarInput";
 
-
-export default function MiddleSection(props:PropsWithChildren<{}>){
- 
-    return (
-      <div className="middleSection_Container">
-        <SearchBarInput type='text' placeholder='Search' />
-        {props.children }
-      </div>
-    )
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default function MiddleSection(props: PropsWithChildren<{}>) {
+  return (
+    <div className="middleSection_Container">
+      <SearchBarInput type="text" placeholder="Search" />
+      {props.children}
+    </div>
+  );
+}
 
 /*
 <InboxComponent searchBarValue={searchBarValue}/>
