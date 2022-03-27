@@ -1,4 +1,9 @@
-import { rightSectionDispatch, useStore, emailStore } from "./zustand";
+import {
+  rightSectionDispatch,
+  useStore,
+  emailStore,
+  deleteStore,
+} from "./zustand";
 //const {v4: uuidv4} = require('uuid');
 
 export interface EMail {
@@ -15,6 +20,7 @@ export const InboxComponent = () => {
   const dispatchState = rightSectionDispatch((state) => state.emailDispatch);
   const renderStoredEmail = emailStore((state) => state.email);
   const dispatchDelete = emailStore((state) => state.deleteEmail);
+  const setDeleteMap = deleteStore((state) => state.setDelete);
   const searchBarValue = useStore((state) => state.searchState);
 
   function RightSideStateHandler(email: EMail) {
@@ -62,6 +68,7 @@ export const InboxComponent = () => {
                   <button
                     onClick={() => {
                       deleteHandler(email.id);
+                      setDeleteMap([email]);
                     }}
                   >
                     Delete Email

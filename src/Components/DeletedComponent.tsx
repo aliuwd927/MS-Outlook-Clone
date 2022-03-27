@@ -1,7 +1,10 @@
+import { deleteStore } from "./zustand";
 export default function DeletedComponent() {
+  const mapDelete = deleteStore((state) => state.deletedState);
+
   return (
     <div>
-      <h1>Hi This is the Deleted Page</h1>
+      <div>{mapDelete.map((element) => element.id)}</div>
     </div>
   );
 }

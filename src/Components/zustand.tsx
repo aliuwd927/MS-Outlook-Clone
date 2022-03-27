@@ -29,7 +29,7 @@ export interface SearchBarInput {
 
 export interface DeleteMapping {
   deletedState: UpdateState[];
-  setDelete: (deletedState: UpdateState[]) => void;
+  setDelete: (email2Del: any) => void;
 }
 
 //RightSecond Email Dispatch Updating State
@@ -81,11 +81,12 @@ export const emailStore = create<EmailActions>((set, get) => ({
   },
 }));
 
-export const delMapping = create<DeleteMapping>((set, get) => ({
+export const deleteStore = create<DeleteMapping>((set, get) => ({
   deletedState: [],
-  setDelete: (deletedState: UpdateState[]) => {
-    set({ deletedState });
-    console.log(deletedState);
+  setDelete: ([email2Del]) => {
+    set((prev) => ({
+      deletedState: [...prev.deletedState, email2Del],
+    }));
   },
 }));
 
