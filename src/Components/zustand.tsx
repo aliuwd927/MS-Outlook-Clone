@@ -1,4 +1,3 @@
-import { Update } from "@reduxjs/toolkit";
 import create from "zustand";
 import emails from "./emails.json";
 
@@ -19,8 +18,8 @@ export interface Actions {
 }
 
 export interface EmailActions {
-  email: any;
-  getEmailState: (emails: UpdateState) => void;
+  email: UpdateState[];
+  deleteEmail: (id: string) => void;
 }
 
 export interface SearchBarInput {
@@ -73,11 +72,12 @@ export const useStore = create<SearchBarInput>((set, get) => ({
     })),
 }));
 
-export const emailState = create<EmailActions>((get) => ({
+export const emailStore = create<EmailActions>((set, get) => ({
   email: emails,
-  getEmailState: (email: UpdateState) => {
-    get({ email });
-    console.log({ email });
+  deleteEmail: (id) => {
+    set((state) => ({
+      email: state.email.filter((em) => em.id !== id),
+    }));
   },
 }));
 

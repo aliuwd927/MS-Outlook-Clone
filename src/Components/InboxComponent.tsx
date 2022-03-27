@@ -1,9 +1,8 @@
-import emails from "./emails.json";
-import { rightSectionDispatch, useStore, emailState } from "./zustand";
+import { rightSectionDispatch, useStore, emailStore } from "./zustand";
 //const {v4: uuidv4} = require('uuid');
 
 export interface EMail {
-  id: any;
+  id: string;
   profilePicture: string;
   nameOfSender: string;
   titleOfEmail: string;
@@ -14,31 +13,46 @@ export interface EMail {
 
 export const InboxComponent = () => {
   const dispatchState = rightSectionDispatch((state) => state.emailDispatch);
-  //const dispatchDelete = delMapping((state) => state.setDelete);
-  const currentEmailState = emailState((state) => state.getEmailState);
+  const renderStoredEmail = emailStore((state) => state.email);
+  const dispatchDelete = emailStore((state) => state.deleteEmail);
   const searchBarValue = useStore((state) => state.searchState);
+
+  function dispatchStateHandler(email: EMail) {
+    dispatchState(email);
+  }
+
+  function deleteHandler(id: string): any {
+    dispatchDelete(id);
+  }
+
   return (
     <div className="table_Container">
-      {emails.reduce((accumulator, current, currentIndex) => {
-        if (
-          !current.bodyMessage
+      {renderStoredEmail
+        .filter((email) => {
+          //This below code below works bc the includes returns true / false value and keeps the true value.
+          return email.bodyMessage
             .toLocaleLowerCase()
-            .includes(searchBarValue.toLocaleLowerCase())
-        ) {
-          return accumulator;
-        } else {
-          return [
-            ...accumulator,
-            <div key={current.id} className="table_row_data">
+            .includes(searchBarValue.toLocaleLowerCase());
+        })
+        .map((email) => {
+          function truncate(input: string, len: number = 30): string {
+            if (input.length <= len) {
+              return input;
+            } else {
+              return input.substring(0, len) + "...";
+            }
+          }
+          return (
+            <div key={email.id} className="table_row_data">
               <div
                 className="table_row_email"
                 onClick={() => {
-                  dispatchState(current);
+                  dispatchStateHandler(email);
                 }}
               >
-                <div>{current.nameOfSender}</div>
-                <div>{current.titleOfEmail}</div>
-                <div>{current.bodyMessage}</div>
+                <div>{email.nameOfSender}</div>
+                <div>{email.titleOfEmail}</div>
+                <div>{truncate(email.bodyMessage)}</div>
               </div>
               <div className="email_buttons_Container">
                 <div className="email_buttons">
@@ -47,30 +61,21 @@ export const InboxComponent = () => {
                   </button>
                   <button
                     onClick={() => {
-                      //console.log(current.id);
-                      if (Number(current.id) === currentIndex) {
-                        console.log(currentIndex);
-                        console.log(emails.splice(currentIndex, 1, current));
-                      }
-                      //dispatchDelete([current]);
-                      //async
-                      //2 function
-                      //function 1 => updateState
-                      //function 2 => pop selected item off reduce filter , follow by a rerender?
-                      //function 2.... think about using filter?
+                      deleteHandler(email.id);
                     }}
                   >
                     Delete Email
                   </button>
                 </div>
               </div>
-            </div>,
-          ];
-        }
-      }, [] as JSX.Element[])}
+            </div>
+          );
+        })}
     </div>
   );
 };
+
+//https://stackoverflow.com/questions/68815270/using-async-method-to-load-a-local-json-file-in-react-js
 
 /*
 
@@ -148,58 +153,68 @@ export const InboxComponent = (props: {searchBarValue:string}) =>{
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-export const InboxComponent = () =>{
-  const dispatchState = rightSectionDispatch(state => state.emailDispatch);
-  const searchBarValue = useStore(state => state.searchState);
-  return(
-    <div className="table_Container">
-         {emails.reduce((accumulator,current)=>{
-              if(!current.bodyMessage.toLocaleLowerCase().includes(searchBarValue.toLocaleLowerCase())){
-                return accumulator
-              }else{
-                return [...accumulator, 
-                  <div 
-                  key={current.id}
-                  className="table_row_data"
-                 >
-                    <div className="table_row_email"
-                     onClick = {()=>{
-                      dispatchState(current);
-                      
-                    }} >
-                    <div>{current.nameOfSender}</div>
-                    <div>{current.titleOfEmail}</div>
-                    <div>{current.bodyMessage}</div>
-                    </div>
-                    <div className='email_buttons_Container'>
-                      
-                      <div className='email_buttons'>
-                      <button
-                       onClick={()=>alert('Reply Email')}
-                       >Reply Email</button>
-                      <button
-                       onClick={()=>{
-                         console.log(current.id);
-                         
-                        //async 
-                        //2 function
-                        //function 1 => updateState
-                        //function 2 => pop selected item off reduce filter , follow by a rerender?
-                        //function 2.... think about using filter?
-                        
-                        }}
-                        >Delete Email</button>
-                      </div>
-                       
+export const InboxComponent = () => {
+  const dispatchState = rightSectionDispatch((state) => state.emailDispatch);
+  const renderStoredEmail = emailStore((state) => state.getStoredEmail);
+  //const dispatchDelete = delMapping((state) => state.setDelete);
+  const searchBarValue = useStore((state) => state.searchState);
 
-                    </div>
-                  </div>]
-              }
-          },[] as JSX.Element[])
-    }
+  function deleteHandler(id: string): any {
+    console.log(id);
+  }
+
+  return (
+    <div className="table_Container">
+      {emails.reduce((accumulator, current, currentIndex) => {
+        if (
+          !current.bodyMessage
+            .toLocaleLowerCase()
+            .includes(searchBarValue.toLocaleLowerCase())
+        ) {
+          return accumulator;
+        } else {
+          return [
+            ...accumulator,
+            <div key={current.id} className="table_row_data">
+              <div
+                className="table_row_email"
+                onClick={() => {
+                  dispatchState(current);
+                }}
+              >
+                <div>{current.nameOfSender}</div>
+                <div>{current.titleOfEmail}</div>
+                <div>{current.bodyMessage}</div>
+              </div>
+              <div className="email_buttons_Container">
+                <div className="email_buttons">
+                  <button onClick={() => alert("Reply Email")}>
+                    Reply Email
+                  </button>
+                  <button
+                    onClick={() => {
+                      deleteHandler(current.id);
+                      renderStoredEmail();
+                      // if (Number(current.id) === currentIndex) {
+                      //   //start at the first index, delete 1 item, replace with currentObj that isn't deleted
+                      //   //this is returning the item we are deleting.
+                      //   console.log(emails.splice(currentIndex, 1, current)); //send this to deleteState Array
+
+                      //   //next step is to delete the element from the html
+                      // }
+                    }}
+                  >
+                    Delete Email
+                  </button>
+                </div>
+              </div>
+            </div>,
+          ];
+        }
+      }, [] as JSX.Element[])}
     </div>
-    )
-   }
+  );
+};
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
