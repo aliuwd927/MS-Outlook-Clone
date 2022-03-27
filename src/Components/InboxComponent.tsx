@@ -17,7 +17,7 @@ export const InboxComponent = () => {
   const dispatchDelete = emailStore((state) => state.deleteEmail);
   const searchBarValue = useStore((state) => state.searchState);
 
-  function dispatchStateHandler(email: EMail) {
+  function RightSideStateHandler(email: EMail) {
     dispatchState(email);
   }
 
@@ -47,7 +47,7 @@ export const InboxComponent = () => {
               <div
                 className="table_row_email"
                 onClick={() => {
-                  dispatchStateHandler(email);
+                  RightSideStateHandler(email);
                 }}
               >
                 <div>{email.nameOfSender}</div>
