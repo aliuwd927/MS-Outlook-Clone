@@ -6,13 +6,11 @@ export default function LeftSection() {
   );
   return (
     <div className="leftSection_Container">
-      <a href="#all" className="dropdown_menu">
-        <div className="arrow_up"></div>
-        <p data-toggle="dropdown" className="dropdown_menu_all">
+      <div className="dropdown_menu">
+        <div data-toggle="dropdown" className="dropdown_menu_all">
           Favorites
-        </p>
-      </a>
-
+        </div>
+      </div>
       <ul className="dropdown_subMenu">
         <li>
           <Link to="/inboxPage">Inbox</Link>

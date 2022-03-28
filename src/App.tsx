@@ -1,5 +1,6 @@
 import "./App.css";
 import { Outlet } from "react-router-dom";
+import NavContainer from "./Components/NavContainer";
 import LeftSection from "./Components/LeftSection";
 import MiddleSection from "./Components/MiddleSection";
 import RightSection from "./Components/RightSection";
@@ -7,11 +8,16 @@ import RightSection from "./Components/RightSection";
 export default function App() {
   return (
     <div className="App">
-      <LeftSection />
-      <MiddleSection>
-        <Outlet />
-      </MiddleSection>
-      <RightSection />
+      <div className="Nav_Container">
+        <NavContainer />
+      </div>
+      <div className="subApp">
+        <LeftSection />
+        <MiddleSection>
+          <Outlet />
+        </MiddleSection>
+        <RightSection />
+      </div>
     </div>
   );
 }

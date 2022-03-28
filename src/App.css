@@ -1,16 +1,25 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@import-normalize;
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
 }
 
-.App {
+.subApp {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   width: 100vw;
   height: 100vh;
+}
+
+.Nav_Container {
+  background-color: #0072c6;
+  width: 100%;
 }
 
 .leftSection_Container {
@@ -29,7 +38,12 @@
 }
 
 .dropdown_subMenu {
-  text-decoration: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown_subMenu > li {
+  list-style-type: none;
 }
 
 .table_Container {
