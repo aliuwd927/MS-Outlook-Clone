@@ -17,7 +17,12 @@ export interface EMail {
 }
 
 export const InboxComponent = () => {
-  const dispatchState = rightSectionDispatch((state) => state.emailDispatch);
+  const { dispatchState, resetDispatchState } = rightSectionDispatch(
+    (state) => ({
+      dispatchState: state.emailDispatch,
+      resetDispatchState: state.emailDispatchReset,
+    })
+  );
   const renderStoredEmail = emailStore((state) => state.email);
   const dispatchDelete = emailStore((state) => state.deleteEmail);
   const setDeleteMap = deleteStore((state) => state.setDelete);
@@ -27,8 +32,10 @@ export const InboxComponent = () => {
     dispatchState(email);
   }
 
-  function deleteHandler(id: string): any {
-    dispatchDelete(id);
+  function deleteHandler(email: EMail): any {
+    dispatchDelete(email.id);
+    setDeleteMap([email]);
+    resetDispatchState();
   }
 
   return (
@@ -67,8 +74,7 @@ export const InboxComponent = () => {
                   </button>
                   <button
                     onClick={() => {
-                      deleteHandler(email.id);
-                      setDeleteMap([email]);
+                      deleteHandler(email);
                     }}
                   >
                     Delete Email
