@@ -1,25 +1,16 @@
-import { useState } from "react";
-import {
-  Dropdown,
-  Navbar,
-  Modal,
-  Form,
-  Button,
-  CloseButton,
-} from "react-bootstrap";
-import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
+import { Navbar } from "react-bootstrap";
+import DropdownComponent from "./DropDownComponent";
 
 export default function NavContainer() {
-  const [show, setShow] = useState(false);
-
-  const handleShow = () => {
-    setShow(true);
-  };
-  const handleClose = () => {
-    setShow(false);
-  };
   return (
     <Navbar>
+      <DropdownComponent />
+    </Navbar>
+  );
+}
+
+/*
+  <Navbar>
       <Dropdown>
         <div className="nav_Buttons">
           <Dropdown.Toggle>
@@ -67,5 +58,8 @@ export default function NavContainer() {
         </DropdownMenu>
       </Dropdown>
     </Navbar>
-  );
-}
+
+
+
+
+ */
