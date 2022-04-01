@@ -16,4 +16,3 @@ export default function ModalComponent(props: { show: boolean; setShow: any }) {
   );
 }
 
-//Todo: Create an interface for props
