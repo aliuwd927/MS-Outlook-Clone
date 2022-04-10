@@ -1,17 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { DebounceInput } from "react-debounce-input";
+import { sentStore } from "./zustand";
+
 export default function FormemailComponent(props: {
   show: boolean;
   setShow: any;
 }) {
+  const sentStateArr = sentStore((state) => state.setStateArray);
+  const checkState = sentStore((state) => state.sentStateArray);
+  const [emailAddress, setEmailAddress] = useState("");
+  const [emailSubject, setEmailSubject] = useState("");
+  const [emailBody, setEmailBody] = useState("");
+
+  function handleEmailAddress(emailAddressValue: string) {
+    if (emailAddressValue) {
+      setEmailAddress(emailAddressValue);
+    }
+  }
+
+  function handleEmailSubject(emailSubjectValue: string) {
+    if (emailSubjectValue) {
+      setEmailSubject(emailSubjectValue);
+    }
+  }
+
+  function handleEmailBody(emailBodyValue: string) {
+    if (emailBodyValue) {
+      setEmailBody(emailBodyValue);
+    }
+  }
+
   function handleSetShow() {
     props.setShow();
   }
 
-  function handleEmailData() {
-    console.log();
+  function handleEmailData(event: React.MouseEvent<HTMLButtonElement>) {
+    sentStateArr([emailAddress, emailSubject, emailBody]);
+    event.preventDefault();
+    console.log(...checkState);
+    //reset state AFTER handleEmailData is clicked.
   }
+
   return (
     <Form>
       <Form.Group>
@@ -20,39 +50,42 @@ export default function FormemailComponent(props: {
           placeholder="Email Sending To"
           debounceTimeout={1000}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            console.log(event.target.value);
+            handleEmailAddress(event.target.value);
           }}
         />
       </Form.Group>
       <Form.Group>
         <DebounceInput
-          type="email"
+          element="input"
+          rows="7"
           placeholder="Email Subject"
-          debounceTimeout={300}
+          debounceTimeout={1000}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            console.log(event.target.value);
+            handleEmailSubject(event.target.value);
           }}
         />
       </Form.Group>
       <Form.Group>
         <DebounceInput
-          as="textarea"
-          rows={3}
+          element="textarea"
+          cols="60"
+          rows="7"
           placeholder="Enter Email Body"
-          debounceTimeout={300}
+          forceNotifyByEnter={false}
+          debounceTimeout={1000}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            console.log(event.target.value);
+            handleEmailBody(event.target.value);
           }}
         />
       </Form.Group>
       <Button variant="secondary" onClick={handleSetShow}>
-        Close{props.show}
+        Close
       </Button>
       <Button
         variant="primary"
         type="submit"
-        onClick={() => {
-          handleEmailData();
+        onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
+          handleEmailData(event);
         }}
       >
         Submit

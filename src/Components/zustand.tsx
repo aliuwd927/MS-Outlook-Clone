@@ -32,6 +32,11 @@ export interface DeleteMapping {
   setDelete: (email2Del: any) => void;
 }
 
+export interface SentState {
+  sentStateArray: UpdateState[];
+  setStateArray: (arr: any) => void;
+}
+
 //RightSecond Email Dispatch Updating State
 export const rightSectionDispatch = create<UpdateState & Actions>((set) => ({
   id: "",
@@ -64,7 +69,7 @@ export const rightSectionDispatch = create<UpdateState & Actions>((set) => ({
 }));
 
 //useStore
-export const useStore = create<SearchBarInput>((set, get) => ({
+export const useStore = create<SearchBarInput>((set) => ({
   searchState: "",
   searchDispatch: (input: string) =>
     set(() => ({
@@ -72,7 +77,7 @@ export const useStore = create<SearchBarInput>((set, get) => ({
     })),
 }));
 
-export const emailStore = create<EmailActions>((set, get) => ({
+export const emailStore = create<EmailActions>((set) => ({
   email: emails,
   deleteEmail: (id) => {
     set((state) => ({
@@ -81,11 +86,20 @@ export const emailStore = create<EmailActions>((set, get) => ({
   },
 }));
 
-export const deleteStore = create<DeleteMapping>((set, get) => ({
+export const deleteStore = create<DeleteMapping>((set) => ({
   deletedState: [],
   setDelete: ([email2Del]) => {
     set((prev) => ({
       deletedState: [...prev.deletedState, email2Del],
+    }));
+  },
+}));
+
+export const sentStore = create<SentState>((set) => ({
+  sentStateArray: [],
+  setStateArray: (arr) => {
+    set(() => ({
+      sentStateArray: arr,
     }));
   },
 }));
