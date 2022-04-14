@@ -98,8 +98,8 @@ export const deleteStore = create<DeleteMapping>((set) => ({
 export const sentStore = create<SentState>((set) => ({
   sentStateArray: [],
   setStateArray: (arr) => {
-    set(() => ({
-      sentStateArray: arr,
+    set((prev) => ({
+      sentStateArray: [...prev.sentStateArray, arr],
     }));
   },
 }));

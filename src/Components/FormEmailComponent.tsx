@@ -1,14 +1,21 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { DebounceInput } from "react-debounce-input";
+import shallow from "zustand/shallow";
 import { sentStore } from "./zustand";
 
 export default function FormemailComponent(props: {
   show: boolean;
   setShow: any;
 }) {
-  const sentStateArr = sentStore((state) => state.setStateArray);
-  const checkState = sentStore((state) => state.sentStateArray);
+  const { sentStateArr, checkState } = sentStore(
+    (state) => ({
+      sentStateArr: state.setStateArray,
+      checkState: state.sentStateArray,
+    }),
+    shallow
+  );
+  //const checkState = sentStore((state) => state.sentStateArray);
   const [emailAddress, setEmailAddress] = useState("");
   const [emailSubject, setEmailSubject] = useState("");
   const [emailBody, setEmailBody] = useState("");
@@ -37,9 +44,14 @@ export default function FormemailComponent(props: {
 
   function handleEmailData(event: React.MouseEvent<HTMLButtonElement>) {
     sentStateArr([emailAddress, emailSubject, emailBody]);
+    handleEmailAddress("");
+    handleEmailSubject("");
+    handleEmailBody("");
     event.preventDefault();
-    console.log(...checkState);
+    console.log(checkState);
     //reset state AFTER handleEmailData is clicked.
+
+    //Current Issue, state doesn't register as quickly as we like and, handler does not reset state.
   }
 
   return (
