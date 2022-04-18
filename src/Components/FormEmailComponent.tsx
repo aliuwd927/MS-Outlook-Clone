@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { DebounceInput } from "react-debounce-input";
 import shallow from "zustand/shallow";
-import { sentStore } from "./zustand";
+import { sentStore, UpdateState } from "./zustand";
 
 export default function FormemailComponent(props: {
   show: boolean;
@@ -15,49 +15,66 @@ export default function FormemailComponent(props: {
     }),
     shallow
   );
-  //const checkState = sentStore((state) => state.sentStateArray);
-  const [emailAddress, setEmailAddress] = useState("");
-  const [emailSubject, setEmailSubject] = useState("");
-  const [emailBody, setEmailBody] = useState("");
+
+  const [emailForm, setEmailForm] = useState({
+    emailAddress: "",
+    emailSubject: "",
+    emailBody: "",
+  });
 
   function handleEmailAddress(emailAddressValue: string) {
-    if (emailAddressValue) {
-      setEmailAddress(emailAddressValue);
+    if (emailAddressValue.length !== 0) {
+      console.log(emailAddressValue.length);
+      setEmailForm((prevState) => {
+        return { ...prevState, emailAddress: emailAddressValue };
+      });
     }
   }
 
   function handleEmailSubject(emailSubjectValue: string) {
-    if (emailSubjectValue) {
-      setEmailSubject(emailSubjectValue);
+    if (emailSubjectValue.length !== 0) {
+      console.log(emailSubjectValue.length);
+      setEmailForm((prevState) => {
+        return { ...prevState, emailSubject: emailSubjectValue };
+      });
     }
   }
 
   function handleEmailBody(emailBodyValue: string) {
-    if (emailBodyValue) {
-      setEmailBody(emailBodyValue);
+    if (emailBodyValue.length !== 0) {
+      console.log(emailBodyValue.length);
+      setEmailForm((prevState) => {
+        return { ...prevState, emailBody: emailBodyValue };
+      });
     }
   }
 
+  //Modal Stuff
   function handleSetShow() {
     props.setShow();
   }
 
   function handleEmailData(event: React.MouseEvent<HTMLButtonElement>) {
-    sentStateArr([emailAddress, emailSubject, emailBody]);
-    handleEmailAddress("");
-    handleEmailSubject("");
-    handleEmailBody("");
-    event.preventDefault();
-    console.log(checkState);
-    //reset state AFTER handleEmailData is clicked.
+    sentStateArr(emailForm);
 
+    //sentStateArr([emailAddress, emailSubject, emailBody]);
+    event.preventDefault();
+    //reset state AFTER handleEmailData is clicked.
+    console.log(emailForm);
     //Current Issue, state doesn't register as quickly as we like and, handler does not reset state.
   }
+
+  //ad0ran:  log (checkState) whenever checkState changes
+  //keeps track of the array
+  useEffect(() => {
+    console.log(checkState);
+  }, [checkState]);
 
   return (
     <Form>
       <Form.Group>
         <DebounceInput
+          value={emailForm.emailAddress}
           type="email"
           placeholder="Email Sending To"
           debounceTimeout={1000}
@@ -68,6 +85,7 @@ export default function FormemailComponent(props: {
       </Form.Group>
       <Form.Group>
         <DebounceInput
+          value={emailForm.emailSubject}
           element="input"
           rows="7"
           placeholder="Email Subject"
@@ -79,6 +97,7 @@ export default function FormemailComponent(props: {
       </Form.Group>
       <Form.Group>
         <DebounceInput
+          value={emailForm.emailBody}
           element="textarea"
           cols="60"
           rows="7"
@@ -119,4 +138,9 @@ export default function FormemailComponent(props: {
    Reset Form Control State
 
 
+
+  ad0ran:  https://codesandbox.io/s/pedantic-gould-4z6hk1?file=/src/App.tsx
+
+
+  Look into changing Debounce
 */
