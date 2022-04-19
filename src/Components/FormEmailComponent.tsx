@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { DebounceInput } from "react-debounce-input";
 import shallow from "zustand/shallow";
-import { sentStore, UpdateState } from "./zustand";
+import { sentStore } from "./zustand";
 
 export default function FormemailComponent(props: {
   show: boolean;
@@ -24,7 +24,6 @@ export default function FormemailComponent(props: {
 
   function handleEmailAddress(emailAddressValue: string) {
     if (emailAddressValue.length !== 0) {
-      console.log(emailAddressValue.length);
       setEmailForm((prevState) => {
         return { ...prevState, emailAddress: emailAddressValue };
       });
@@ -33,7 +32,6 @@ export default function FormemailComponent(props: {
 
   function handleEmailSubject(emailSubjectValue: string) {
     if (emailSubjectValue.length !== 0) {
-      console.log(emailSubjectValue.length);
       setEmailForm((prevState) => {
         return { ...prevState, emailSubject: emailSubjectValue };
       });
@@ -42,7 +40,6 @@ export default function FormemailComponent(props: {
 
   function handleEmailBody(emailBodyValue: string) {
     if (emailBodyValue.length !== 0) {
-      console.log(emailBodyValue.length);
       setEmailForm((prevState) => {
         return { ...prevState, emailBody: emailBodyValue };
       });
@@ -73,7 +70,7 @@ export default function FormemailComponent(props: {
   useEffect(() => {
     console.log(emailForm);
     console.log(checkState);
-  }, [checkState]);
+  }, [checkState, emailForm]);
 
   return (
     <Form>
