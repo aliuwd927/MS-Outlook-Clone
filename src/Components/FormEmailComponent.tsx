@@ -55,18 +55,23 @@ export default function FormemailComponent(props: {
   }
 
   function handleEmailData(event: React.MouseEvent<HTMLButtonElement>) {
+    //Update State
     sentStateArr(emailForm);
 
-    //sentStateArr([emailAddress, emailSubject, emailBody]);
+    //RESET STATE ON SUBMIT
+    setEmailForm({
+      emailAddress: "",
+      emailSubject: "",
+      emailBody: "",
+    });
+    //Prevents Page from reseting
     event.preventDefault();
-    //reset state AFTER handleEmailData is clicked.
-    console.log(emailForm);
-    //Current Issue, state doesn't register as quickly as we like and, handler does not reset state.
   }
 
   //ad0ran:  log (checkState) whenever checkState changes
   //keeps track of the array
   useEffect(() => {
+    console.log(emailForm);
     console.log(checkState);
   }, [checkState]);
 
