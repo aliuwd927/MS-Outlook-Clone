@@ -10,11 +10,7 @@ interface LocalEmail {
   emailBody: string;
 }
 
-interface formDataEmail {
-  dataEmail: string;
-  dataSubject: string;
-  dataEmailBody: string;
-}
+type L = keyof LocalEmail;
 
 export default function FormemailComponent(props: {
   show: boolean;
@@ -68,18 +64,43 @@ export default function FormemailComponent(props: {
     props.setShow();
   }
 
-  //This returns error if any
-  const formValidator = (data: Partial<formDataEmail>) => {
-    const dataArr = data;
-    const isEmpty = Object.keys(dataArr).some((element) => {
+  //This returns errors object and will be used in handleEmailData to update errorState
+  const formValidator = (data: Partial<LocalEmail>) => {
+    const emailRegEx = RegExp(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/);
+    //Why does this need to be true?
+    //True to check validity of the form to ensure all fields are typed
+    //False meaning there is a empty field somewhere
+    //Return the error if false to update emailErrorState
+    let valid = true;
+    /*
+      We need to return errors obj, to update the emailError State
+      We do it locally, and then return it formValidator as object values
+      By doing so, we can update the state together or as needed.
+    */
+    let errors = { ...emailInitalState };
+
+    if (data.emailAddress && emailRegEx.test(data.emailAddress)) {
+      console.log("Valid Email Address");
+    } else {
+      errors.emailAddress = "Invalid Email";
+      valid = false;
+    }
+    for (const [key, value] of Object.entries(data)) {
+      /*
+      THESE ARE THE FUCKING SAME LMAO
+      They call upon the value of the data object
+      console.log(value);
+      console.log(data[key as L]);
+      */
+
       /*
         Key: Value
         If the value of the key has a Value in it, it will be true
         however, bc we need to know if the element is empty,
-        we inverted that so that way, if there is a value, that key
-        is NOT empty, we it needs to return false.
+        we inverted it, so that way, if there is a value, that key
+        is NOT empty and we need to return false instead of true.
 
-        If the key HAS an empty, it needs to return TRUE so that way
+        If the key HAS an empty value, it needs to return TRUE so that way
         we know THAT key is EMPTY.
 
         Key: '' --> Equate to True
@@ -89,53 +110,58 @@ export default function FormemailComponent(props: {
         !!value = True
         !!NOVALUE = False
       */
-      return !(dataArr as any)[element];
-    });
 
-    console.log(isEmpty);
-    //return isEmpty
-    // https://www.positronx.io/react-form-validation-tutorial-with-example/
-    // Just in case you need to continue
-    // Please also use ad0ran typed solution to learn
-    // https://codesandbox.io/s/relaxed-leavitt-9cz3xg?file=/src/App.tsx
-    // Please also use micheaaa type solution to learn
-    // https://stackblitz.com/edit/react-ts-yr283a?file=index.tsx
+      //We set this variable to hold a boolean instead of a value itself
+      const isPropValueEmpty = !value;
 
-    //use regex to check
-
-    //make sure length is > 0
-    //Loop thru Obj Key:Value
-    //Check if value.length > 0 && some regex stuff to match
-    //if all 3 items pass, then trigger sentStateArr(emailForm)
+      //Informs us if any properties are empty.
+      //True = property value is empty
+      if (isPropValueEmpty) {
+        errors[key as L] = `${key} field is empty`;
+        //console.log(errors[key as L]);
+        //set false to notify use there is an empty field which is an error.
+        valid = false;
+      }
+    }
+    //if false, return us the errors
+    if (!valid) {
+      return errors;
+    }
   };
 
   function handleEmailData(event: React.FormEvent<HTMLFormElement>) {
     //Prevents Page from reseting
     event.preventDefault();
-    const emailRegEx = RegExp(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/);
 
     //newFormData creates a new obj
     const dataTargeted = new FormData(event.currentTarget);
     //get Method allows us retrieves attributes based by the DOM Node
     //These essentilly grabbing keys which contains values in them
-    const dataEmail = dataTargeted.get("emailAddress")?.toString().trim();
-    const dataSubject = dataTargeted.get("emailSubject")?.toString().trim();
-    const dataEmailBody = dataTargeted.get("emailBody")?.toString().trim();
-    console.log(dataTargeted);
+    const emailAddress = dataTargeted.get("emailAddress")?.toString().trim();
+    const emailSubject = dataTargeted.get("emailSubject")?.toString().trim();
+    const emailBody = dataTargeted.get("emailBody")?.toString().trim();
+
     //bundle into obj to send to formValidator
     //bundled so we can also iterate objects
-    const values = { dataEmail, dataSubject, dataEmailBody };
-    //returns error values
-    //error is either true / false
-    //if true, trigger  setFormError and end else submit state
+    const values = { emailAddress, emailSubject, emailBody };
+
     const errors = formValidator(values);
+    //console.log(errors);
+    if (errors) {
+      setEmailError(errors);
+      return;
+    } else {
+      setEmailError({
+        emailAddress: "",
+        emailSubject: "",
+        emailBody: "",
+      });
+    }
 
-    //Chk for error
-    //if(errors)
-    //setFormErrors(errors)
-
-    //if no errors
-    //setEmailForm(values)
+    /*
+      Render this style conditionally
+      https://react-bootstrap.netlify.app/forms/validation/
+    */
 
     //Update State
     sentStateArr(emailForm);
@@ -146,16 +172,18 @@ export default function FormemailComponent(props: {
       emailSubject: "",
       emailBody: "",
     });
+
+    //console.log(emailError);
   }
 
   //ad0ran:  log (checkState) whenever checkState changes
   //keeps track of the array
-  // useEffect(() => {
-  //   console.log(emailForm);
-  //   console.log(checkState);
-  //   //Test Unit to Check if emailForm copying to emailError
-  //   console.log(emailError);
-  // }, [checkState, emailForm, emailError]);
+  useEffect(() => {
+    // console.log(emailForm);
+    // console.log(checkState);
+    //Test Unit to Check if emailForm copying to emailError
+    console.log(emailError);
+  }, [checkState, emailForm, emailError]);
 
   return (
     <Form noValidate onSubmit={handleEmailData}>
@@ -228,3 +256,53 @@ export default function FormemailComponent(props: {
 
   Look into changing Debounce
 */
+
+// Legacy Code
+//Return us True / False
+// Object.keys(data).forEach((element) => {
+//   /*
+//     Key: Value
+//     If the value of the key has a Value in it, it will be true
+//     however, bc we need to know if the element is empty,
+//     we inverted that so that way, if there is a value, that key
+//     is NOT empty, we it needs to return false.
+
+//     If the key HAS an empty, it needs to return TRUE so that way
+//     we know THAT key is EMPTY.
+
+//     Key: '' --> Equate to True
+//     Key: 'Value' --> Equate that to False
+
+//     NORMALLY
+//     !!value = True
+//     !!NOVALUE = False
+//   */
+//   //We set this variable to hold a boolean instead of a value
+//   // const isPropValueEmpty = !data[element as keyof LocalEmail];
+//   /*
+
+//   */
+//   //Informs us if any properties are empty
+//   // if (isPropValueEmpty) {
+//   errors[element as keyof LocalEmail] = `${element} field is empty`;
+//   //   console.log(errors[element as keyof LocalEmail]);
+//   //   console.log(errors);
+//   //   valid = false;
+//   // }
+// });
+
+// console.log(isEmpty);
+//return isEmpty
+// https://www.positronx.io/react-form-validation-tutorial-with-example/
+// Just in case you need to continue
+// Please also use ad0ran typed solution to learn
+// https://codesandbox.io/s/relaxed-leavitt-9cz3xg?file=/src/App.tsx
+// Please also use micheaaa type solution to learn
+// https://stackblitz.com/edit/react-ts-yr283a?file=index.tsx
+
+//use regex to check
+
+//make sure length is > 0
+//Loop thru Obj Key:Value
+//Check if value.length > 0 && some regex stuff to match
+//if all 3 items pass, then trigger sentStateArr(emailForm)
