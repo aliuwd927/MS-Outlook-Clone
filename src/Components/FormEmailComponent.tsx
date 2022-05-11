@@ -78,7 +78,6 @@ export default function FormemailComponent(props: {
       By doing so, we can update the state together or as needed.
     */
     let errors = { ...emailInitalState };
-
     if (data.emailAddress && emailRegEx.test(data.emailAddress)) {
       console.log("Valid Email Address");
     } else {
