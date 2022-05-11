@@ -180,9 +180,9 @@ export default function FormemailComponent(props: {
   //keeps track of the array
   useEffect(() => {
     // console.log(emailForm);
-    // console.log(checkState);
+    console.log(checkState);
     //Test Unit to Check if emailForm copying to emailError
-    console.log(emailError);
+    //console.log(emailError);
   }, [checkState, emailForm, emailError]);
 
   return (
