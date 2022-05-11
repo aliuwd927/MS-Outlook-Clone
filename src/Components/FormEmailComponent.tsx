@@ -198,6 +198,8 @@ export default function FormemailComponent(props: {
             handleEmailAddress(event.target.value);
           }}
         />
+        <br />
+        <span>{emailError.emailAddress}</span>
       </Form.Group>
       <Form.Group>
         <DebounceInput
@@ -211,6 +213,8 @@ export default function FormemailComponent(props: {
             handleEmailSubject(event.target.value);
           }}
         />
+        <br />
+        <span>{emailError.emailSubject}</span>
       </Form.Group>
       <Form.Group>
         <DebounceInput
@@ -226,6 +230,8 @@ export default function FormemailComponent(props: {
             handleEmailBody(event.target.value);
           }}
         />
+        <br />
+        <span>{emailError.emailBody}</span>
       </Form.Group>
       <Button variant="secondary" onClick={handleSetShow}>
         Close
