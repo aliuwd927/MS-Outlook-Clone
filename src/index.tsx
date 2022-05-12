@@ -8,6 +8,8 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { InboxComponent } from "./Components/InboxComponent";
 import DeletedComponent from "./Components/DeletedComponent";
+import SentEmailComponent from "./Components/SentEmailComponent";
+import DraftEmailComponent from "./Components/DraftEmailComponent";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -15,6 +17,8 @@ ReactDOM.render(
       <Route path="/" element={<App />}>
         <Route path="/inboxPage" element={<InboxComponent />}></Route>
         <Route path="/deletePage" element={<DeletedComponent />}></Route>
+        <Route path="/sentPage" element={<SentEmailComponent />}></Route>
+        <Route path="/draftPage" element={<DraftEmailComponent />}></Route>
       </Route>
     </Routes>
   </BrowserRouter>,

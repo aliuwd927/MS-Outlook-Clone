@@ -5,9 +5,9 @@ import shallow from "zustand/shallow";
 import { sentStore, UpdateState } from "./zustand";
 
 interface LocalEmail {
-  emailAddress: string;
-  emailSubject: string;
-  emailBody: string;
+  nameOfSender: string;
+  titleOfEmail: string;
+  bodyMessage: string;
 }
 
 type L = keyof LocalEmail;
@@ -25,9 +25,9 @@ export default function FormemailComponent(props: {
   );
 
   const emailInitalState = {
-    emailAddress: "",
-    emailSubject: "",
-    emailBody: "",
+    nameOfSender: "",
+    titleOfEmail: "",
+    bodyMessage: "",
   };
 
   const emailInitalErrorState = { ...emailInitalState };
@@ -38,7 +38,7 @@ export default function FormemailComponent(props: {
   function handleEmailAddress(emailAddressValue: string) {
     if (emailAddressValue.length !== 0) {
       setEmailForm((prevState) => {
-        return { ...prevState, emailAddress: emailAddressValue };
+        return { ...prevState, nameOfSender: emailAddressValue };
       });
     }
   }
@@ -46,7 +46,7 @@ export default function FormemailComponent(props: {
   function handleEmailSubject(emailSubjectValue: string) {
     if (emailSubjectValue.length !== 0) {
       setEmailForm((prevState) => {
-        return { ...prevState, emailSubject: emailSubjectValue };
+        return { ...prevState, titleOfEmail: emailSubjectValue };
       });
     }
   }
@@ -54,7 +54,7 @@ export default function FormemailComponent(props: {
   function handleEmailBody(emailBodyValue: string) {
     if (emailBodyValue.length !== 0) {
       setEmailForm((prevState) => {
-        return { ...prevState, emailBody: emailBodyValue };
+        return { ...prevState, bodyMessage: emailBodyValue };
       });
     }
   }
@@ -78,10 +78,10 @@ export default function FormemailComponent(props: {
       By doing so, we can update the state together or as needed.
     */
     let errors = { ...emailInitalState };
-    if (data.emailAddress && emailRegEx.test(data.emailAddress)) {
+    if (data.nameOfSender && emailRegEx.test(data.nameOfSender)) {
       console.log("Valid Email Address");
     } else {
-      errors.emailAddress = "Invalid Email";
+      errors.nameOfSender = "Invalid Email";
       valid = false;
     }
     for (const [key, value] of Object.entries(data)) {
@@ -136,13 +136,13 @@ export default function FormemailComponent(props: {
     const dataTargeted = new FormData(event.currentTarget);
     //get Method allows us retrieves attributes based by the DOM Node
     //These essentilly grabbing keys which contains values in them
-    const emailAddress = dataTargeted.get("emailAddress")?.toString().trim();
-    const emailSubject = dataTargeted.get("emailSubject")?.toString().trim();
-    const emailBody = dataTargeted.get("emailBody")?.toString().trim();
+    const nameOfSender = dataTargeted.get("nameOfSender")?.toString().trim();
+    const titleOfEmail = dataTargeted.get("titleOfEmail")?.toString().trim();
+    const bodyMessage = dataTargeted.get("bodyMessage")?.toString().trim();
 
     //bundle into obj to send to formValidator
     //bundled so we can also iterate objects
-    const values = { emailAddress, emailSubject, emailBody };
+    const values = { nameOfSender, titleOfEmail, bodyMessage };
 
     const errors = formValidator(values);
     //console.log(errors);
@@ -150,10 +150,11 @@ export default function FormemailComponent(props: {
       setEmailError(errors);
       return;
     } else {
+      //Reset State for Email Error
       setEmailError({
-        emailAddress: "",
-        emailSubject: "",
-        emailBody: "",
+        nameOfSender: "",
+        titleOfEmail: "",
+        bodyMessage: "",
       });
     }
 
@@ -167,9 +168,9 @@ export default function FormemailComponent(props: {
 
     //RESET STATE ON SUBMIT
     setEmailForm({
-      emailAddress: "",
-      emailSubject: "",
-      emailBody: "",
+      nameOfSender: "",
+      titleOfEmail: "",
+      bodyMessage: "",
     });
 
     //console.log(emailError);
@@ -177,60 +178,60 @@ export default function FormemailComponent(props: {
 
   //ad0ran:  log (checkState) whenever checkState changes
   //keeps track of the array
-  useEffect(() => {
-    // console.log(emailForm);
-    console.log(checkState);
-    //Test Unit to Check if emailForm copying to emailError
-    //console.log(emailError);
-  }, [checkState, emailForm, emailError]);
+  // useEffect(() => {
+  //   // console.log(emailForm);
+  //   console.log(checkState);
+  //   //Test Unit to Check if emailForm copying to emailError
+  //   //console.log(emailError);
+  // }, [checkState, emailForm, emailError]);
 
   return (
     <Form noValidate onSubmit={handleEmailData}>
       <Form.Group>
         <DebounceInput
-          value={emailForm.emailAddress}
+          value={emailForm.nameOfSender}
           type="email"
           placeholder="Email Sending To"
           debounceTimeout={1000}
-          name="emailAddress"
+          name="nameOfSender"
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             handleEmailAddress(event.target.value);
           }}
         />
         <br />
-        <span>{emailError.emailAddress}</span>
+        <span>{emailError.nameOfSender}</span>
       </Form.Group>
       <Form.Group>
         <DebounceInput
-          value={emailForm.emailSubject}
+          value={emailForm.titleOfEmail}
           element="input"
           rows="7"
           placeholder="Email Subject"
           debounceTimeout={1000}
-          name="emailSubject"
+          name="titleOfEmail"
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             handleEmailSubject(event.target.value);
           }}
         />
         <br />
-        <span>{emailError.emailSubject}</span>
+        <span>{emailError.titleOfEmail}</span>
       </Form.Group>
       <Form.Group>
         <DebounceInput
-          value={emailForm.emailBody}
+          value={emailForm.bodyMessage}
           element="textarea"
           cols="60"
           rows="7"
           placeholder="Enter Email Body"
           forceNotifyByEnter={false}
           debounceTimeout={1000}
-          name="emailBody"
+          name="bodyMessage"
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             handleEmailBody(event.target.value);
           }}
         />
         <br />
-        <span>{emailError.emailBody}</span>
+        <span>{emailError.bodyMessage}</span>
       </Form.Group>
       <Button variant="secondary" onClick={handleSetShow}>
         Close

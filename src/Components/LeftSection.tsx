@@ -13,13 +13,19 @@ export default function LeftSection() {
       </div>
       <ul className="dropdown_subMenu">
         <li>
-          <Link to="/inboxPage">Inbox</Link>
+          <Link to="/inboxPage" onClick={() => deleteComponentReset()}>
+            Inbox
+          </Link>
         </li>
         <li>
-          <a href="#draft">Draft</a>
+          <Link to="/draftPage" onClick={() => deleteComponentReset()}>
+            Draft
+          </Link>
         </li>
         <li>
-          <a href="#sent">Sent</a>
+          <Link to="/sentPage" onClick={() => deleteComponentReset()}>
+            Sent
+          </Link>
         </li>
         <li>
           <Link to="/deletePage" onClick={() => deleteComponentReset()}>
