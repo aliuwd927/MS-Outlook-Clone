@@ -37,6 +37,11 @@ export interface SentState {
   setStateArray: (arr: any) => void;
 }
 
+export interface DraftState {
+  draftStateArray: DraftState[];
+  setDraftStateArray: (arr: any) => void;
+}
+
 //RightSecond Email Dispatch Updating State
 export const rightSectionDispatch = create<UpdateState & Actions>((set) => ({
   id: "",
@@ -91,6 +96,15 @@ export const deleteStore = create<DeleteMapping>((set) => ({
   setDelete: ([email2Del]) => {
     set((prev) => ({
       deletedState: [...prev.deletedState, email2Del],
+    }));
+  },
+}));
+
+export const draftStore = create<DraftState>((set) => ({
+  draftStateArray: [],
+  setDraftStateArray: (arr) => {
+    set((prev) => ({
+      draftStateArray: [...prev.draftStateArray, arr],
     }));
   },
 }));

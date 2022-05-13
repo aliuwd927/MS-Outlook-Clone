@@ -131,6 +131,7 @@ export default function FormemailComponent(props: {
   function handleEmailData(event: React.FormEvent<HTMLFormElement>) {
     //Prevents Page from reseting
     event.preventDefault();
+    console.log(event.currentTarget.value);
 
     //newFormData creates a new obj
     const dataTargeted = new FormData(event.currentTarget);
@@ -238,6 +239,9 @@ export default function FormemailComponent(props: {
       </Button>
       <Button variant="primary" type="submit">
         Submit
+      </Button>
+      <Button variant="warning" type="submit">
+        Save to drafts
       </Button>
     </Form>
   );
