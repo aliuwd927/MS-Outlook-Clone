@@ -147,9 +147,9 @@ export default function FormemailComponent(props: {
 
     */
     const errors = formValidator({ ...emailForm });
-    console.log(!errors);
+    console.log(errors);
 
-    if (!errors) {
+    if (errors) {
       //Set state to emailDraft and send to draftState in Zustand
     }
   }
