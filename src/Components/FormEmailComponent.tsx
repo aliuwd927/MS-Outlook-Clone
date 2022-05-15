@@ -1,4 +1,9 @@
-import React, { FormEventHandler, useEffect, useState } from "react";
+import React, {
+  FormEventHandler,
+  useEffect,
+  useState,
+  MouseEvent,
+} from "react";
 import { Form, Button } from "react-bootstrap";
 import { DebounceInput } from "react-debounce-input";
 import shallow from "zustand/shallow";
@@ -23,18 +28,22 @@ export default function FormemailComponent(props: {
     }),
     shallow
   );
-
+  //Email Inital State
   const emailInitalState = {
     nameOfSender: "",
     titleOfEmail: "",
     bodyMessage: "",
   };
-
+  //Copies for Email Error and Email Draft
   const emailInitalErrorState = { ...emailInitalState };
+  const emailInitalDraft = { ...emailInitalState };
 
+  //Local UseState
   const [emailForm, setEmailForm] = useState(emailInitalState);
   const [emailError, setEmailError] = useState(emailInitalErrorState);
+  const [emailDraft, setEmailDraft] = useState(emailInitalDraft);
 
+  //Sends State to Zustand State Management
   function handleEmailAddress(emailAddressValue: string) {
     if (emailAddressValue.length !== 0) {
       setEmailForm((prevState) => {
@@ -128,6 +137,13 @@ export default function FormemailComponent(props: {
     }
   };
 
+  //Save Draft
+  function handleSaveDraft() {
+    const { nameOfSender, titleOfEmail, bodyMessage } = emailForm;
+    console.log(nameOfSender, titleOfEmail, bodyMessage);
+  }
+
+  //Handle Email Data, when Form Submits
   function handleEmailData(event: React.FormEvent<HTMLFormElement>) {
     //Prevents Page from reseting
     event.preventDefault();
@@ -146,7 +162,7 @@ export default function FormemailComponent(props: {
     const values = { nameOfSender, titleOfEmail, bodyMessage };
 
     const errors = formValidator(values);
-    //console.log(errors);
+
     if (errors) {
       setEmailError(errors);
       return;
@@ -173,8 +189,6 @@ export default function FormemailComponent(props: {
       titleOfEmail: "",
       bodyMessage: "",
     });
-
-    //console.log(emailError);
   }
 
   //ad0ran:  log (checkState) whenever checkState changes
@@ -240,7 +254,7 @@ export default function FormemailComponent(props: {
       <Button variant="primary" type="submit">
         Submit
       </Button>
-      <Button variant="warning" type="submit">
+      <Button variant="warning" onClick={handleSaveDraft}>
         Save to drafts
       </Button>
     </Form>
