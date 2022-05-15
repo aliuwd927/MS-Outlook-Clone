@@ -1,13 +1,8 @@
-import React, {
-  FormEventHandler,
-  useEffect,
-  useState,
-  MouseEvent,
-} from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { DebounceInput } from "react-debounce-input";
 import shallow from "zustand/shallow";
-import { sentStore, UpdateState } from "./zustand";
+import { sentStore, draftStore } from "./zustand";
 
 interface LocalEmail {
   nameOfSender: string;
@@ -28,6 +23,9 @@ export default function FormemailComponent(props: {
     }),
     shallow
   );
+
+  const draftStoreArr = draftStore((state) => state.setDraftStateArray);
+
   //Email Inital State
   const emailInitalState = {
     nameOfSender: "",
@@ -147,10 +145,14 @@ export default function FormemailComponent(props: {
 
     */
     const errors = formValidator({ ...emailForm });
-    console.log(errors);
+    //console.log(errors);
+    console.log(!!errors);
 
-    if (errors) {
+    if (!errors) {
       //Set state to emailDraft and send to draftState in Zustand
+      console.log(emailForm.nameOfSender);
+      console.log(emailForm.titleOfEmail);
+      console.log(emailForm.bodyMessage);
     }
   }
 
