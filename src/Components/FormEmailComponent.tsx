@@ -148,11 +148,16 @@ export default function FormemailComponent(props: {
     //console.log(errors);
     console.log(!!errors);
 
+    //By setting this to false, it lets us know all fields are filled
+    // When True, it means that emptyFields are indeed empty
     if (!errors) {
       //Set state to emailDraft and send to draftState in Zustand
       console.log(emailForm.nameOfSender);
       console.log(emailForm.titleOfEmail);
       console.log(emailForm.bodyMessage);
+      handleSetShow();
+    } else {
+      return;
     }
   }
 
