@@ -139,15 +139,24 @@ export default function FormemailComponent(props: {
 
   //Save Draft
   function handleSaveDraft() {
-    const { nameOfSender, titleOfEmail, bodyMessage } = emailForm;
-    console.log(nameOfSender, titleOfEmail, bodyMessage);
+    /*
+      Because of onChange event, it will store in emailForm.
+      Before we submit to sentStateArry, it MUST be checked thru form validator
+      In this case we don't have to worry about fields, but for good practice,
+      we must make sure the user fills out all information before saving, just so they better remember.
+
+    */
+    const errors = formValidator({ ...emailForm });
+    console.log(!errors);
+    if (!errors) {
+      //Set state to emailDraft and send to draftState in Zustand
+    }
   }
 
   //Handle Email Data, when Form Submits
   function handleEmailData(event: React.FormEvent<HTMLFormElement>) {
     //Prevents Page from reseting
     event.preventDefault();
-    console.log(event.currentTarget.value);
 
     //newFormData creates a new obj
     const dataTargeted = new FormData(event.currentTarget);
