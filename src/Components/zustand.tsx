@@ -17,6 +17,11 @@ export interface Actions {
   emailDispatchReset: () => void;
 }
 
+export interface ModalAction {
+  show: boolean;
+  setShow: (show: boolean) => void;
+}
+
 export interface EmailActions {
   email: UpdateState[];
   deleteEmail: (id: string) => void;
@@ -38,7 +43,7 @@ export interface SentState {
 }
 
 export interface DraftState {
-  draftStateArray: DraftState[];
+  draftStateArray: UpdateState[];
   setDraftStateArray: (arr: any) => void;
 }
 
@@ -82,6 +87,14 @@ export const useStore = create<SearchBarInput>((set) => ({
     })),
 }));
 
+export const modalStatus = create<ModalAction>((set) => ({
+  show: false,
+  setShow: (toShow: boolean) =>
+    set(() => ({
+      show: toShow,
+    })),
+}));
+
 export const emailStore = create<EmailActions>((set) => ({
   email: emails,
   deleteEmail: (id) => {
@@ -102,9 +115,9 @@ export const deleteStore = create<DeleteMapping>((set) => ({
 
 export const draftStore = create<DraftState>((set) => ({
   draftStateArray: [],
-  setDraftStateArray: (arr) => {
+  setDraftStateArray: (arrDraft) => {
     set((prev) => ({
-      draftStateArray: [...prev.draftStateArray, arr],
+      draftStateArray: [...prev.draftStateArray, arrDraft],
     }));
   },
 }));

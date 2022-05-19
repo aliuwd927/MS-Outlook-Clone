@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { DebounceInput } from "react-debounce-input";
 import shallow from "zustand/shallow";
-import { sentStore, draftStore } from "./zustand";
+import { sentStore, draftStore, ModalAction } from "./zustand";
 
 interface LocalEmail {
   nameOfSender: string;
@@ -12,10 +12,7 @@ interface LocalEmail {
 
 type L = keyof LocalEmail;
 
-export default function FormemailComponent(props: {
-  show: boolean;
-  setShow: any;
-}) {
+export default function FormemailComponent(props: ModalAction) {
   const { sentStateArr, checkState } = sentStore(
     (state) => ({
       sentStateArr: state.setStateArray,
@@ -68,7 +65,7 @@ export default function FormemailComponent(props: {
 
   //Modal Stuff
   function handleSetShow() {
-    props.setShow();
+    props.setShow(false);
   }
 
   //This returns errors object and will be used in handleEmailData to update errorState
@@ -155,6 +152,17 @@ export default function FormemailComponent(props: {
       console.log(emailForm.nameOfSender);
       console.log(emailForm.titleOfEmail);
       console.log(emailForm.bodyMessage);
+
+      // setEmailDraft({
+      //   nameOfSender: emailForm.nameOfSender,
+      //   titleOfEmail: emailForm.titleOfEmail,
+      //   bodyMessage: emailForm.bodyMessage,
+      // });
+      draftStoreArr({
+        nameOfSender: emailForm.nameOfSender,
+        titleOfEmail: emailForm.titleOfEmail,
+        bodyMessage: emailForm.bodyMessage,
+      });
       handleSetShow();
     } else {
       return;
@@ -211,12 +219,13 @@ export default function FormemailComponent(props: {
 
   //ad0ran:  log (checkState) whenever checkState changes
   //keeps track of the array
-  // useEffect(() => {
-  //   // console.log(emailForm);
-  //   console.log(checkState);
-  //   //Test Unit to Check if emailForm copying to emailError
-  //   //console.log(emailError);
-  // }, [checkState, emailForm, emailError]);
+  useEffect(() => {
+    // console.log(emailForm);
+    //console.log(checkState);
+    //Test Unit to Check if emailForm copying to emailError
+    //console.log(emailError);
+    console.log(emailDraft);
+  }, [checkState, emailForm, emailError, emailDraft]);
 
   return (
     <Form noValidate onSubmit={handleEmailData}>

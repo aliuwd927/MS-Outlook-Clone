@@ -1,7 +1,8 @@
 import { Modal } from "react-bootstrap";
-
 import FormemailComponent from "./FormEmailComponent";
-export default function ModalComponent(props: { show: boolean; setShow: any }) {
+import { ModalAction } from "./zustand";
+
+export default function ModalComponent(props: ModalAction) {
   return (
     <Modal show={props.show}>
       <Modal.Dialog>
@@ -15,4 +16,3 @@ export default function ModalComponent(props: { show: boolean; setShow: any }) {
     </Modal>
   );
 }
-
