@@ -29,7 +29,7 @@ export interface EmailActions {
 
 export interface SearchBarInput {
   searchState: string;
-  searchDispatch: any;
+  searchDispatch: (input: string) => void;
 }
 
 export interface DeleteMapping {
