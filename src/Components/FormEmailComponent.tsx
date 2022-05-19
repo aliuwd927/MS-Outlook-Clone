@@ -149,15 +149,6 @@ export default function FormemailComponent(props: ModalAction) {
     // When True, it means that emptyFields are indeed empty
     if (!errors) {
       //Set state to emailDraft and send to draftState in Zustand
-      console.log(emailForm.nameOfSender);
-      console.log(emailForm.titleOfEmail);
-      console.log(emailForm.bodyMessage);
-
-      // setEmailDraft({
-      //   nameOfSender: emailForm.nameOfSender,
-      //   titleOfEmail: emailForm.titleOfEmail,
-      //   bodyMessage: emailForm.bodyMessage,
-      // });
       draftStoreArr({
         nameOfSender: emailForm.nameOfSender,
         titleOfEmail: emailForm.titleOfEmail,
