@@ -32,7 +32,7 @@ export const InboxComponent = () => {
     dispatchState(email);
   }
 
-  function deleteHandler(email: EMail): any {
+  function deleteHandler(email: EMail) {
     dispatchDelete(email.id);
     setDeleteMap([email]);
     resetDispatchState();

@@ -29,22 +29,22 @@ export interface EmailActions {
 
 export interface SearchBarInput {
   searchState: string;
-  searchDispatch: any;
+  searchDispatch: (input: string) => void;
 }
 
 export interface DeleteMapping {
   deletedState: UpdateState[];
-  setDelete: (email2Del: any) => void;
+  setDelete: (email2Del: [UpdateState]) => void;
 }
 
 export interface SentState {
   sentStateArray: UpdateState[];
-  setStateArray: (arr: any) => void;
+  setStateArray: (arr: UpdateState) => void;
 }
 
 export interface DraftState {
   draftStateArray: UpdateState[];
-  setDraftStateArray: (arr: any) => void;
+  setDraftStateArray: (arr: UpdateState) => void;
 }
 
 //RightSecond Email Dispatch Updating State

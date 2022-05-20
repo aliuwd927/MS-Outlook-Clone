@@ -3,6 +3,7 @@ import { Form, Button } from "react-bootstrap";
 import { DebounceInput } from "react-debounce-input";
 import shallow from "zustand/shallow";
 import { sentStore, draftStore, ModalAction } from "./zustand";
+import { v4 as uuidv4 } from "uuid";
 
 interface LocalEmail {
   nameOfSender: string;
@@ -150,9 +151,13 @@ export default function FormemailComponent(props: ModalAction) {
     if (!errors) {
       //Set state to emailDraft and send to draftState in Zustand
       draftStoreArr({
+        id: uuidv4(),
+        profilePicture: "",
         nameOfSender: emailForm.nameOfSender,
         titleOfEmail: emailForm.titleOfEmail,
         bodyMessage: emailForm.bodyMessage,
+        dateOfMessage: "",
+        isAttachment: ""
       });
       handleSetShow();
     } else {
@@ -198,7 +203,15 @@ export default function FormemailComponent(props: ModalAction) {
     */
 
     //Update State
-    sentStateArr(emailForm);
+    sentStateArr({
+      id: uuidv4(),
+      profilePicture: "",
+      nameOfSender: emailForm.nameOfSender,
+      titleOfEmail: emailForm.titleOfEmail,
+      bodyMessage: emailForm.bodyMessage,
+      dateOfMessage: "",
+      isAttachment: ""
+    });
 
     //RESET STATE ON SUBMIT
     setEmailForm({
