@@ -132,6 +132,7 @@ export const sentStore = create<SentState>((set) => ({
 }));
 
 /*
+
 creekburn: I have 2 ideas for how to managed this. Have 2 lists, and move items between them.
  The other is to have a flag on an item, and display based on the state of the flag.
 
