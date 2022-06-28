@@ -18,10 +18,13 @@ export default function DraftEmailComponent() {
 
   const [showDraftModal, setShowDraftModal] = useState(false);
 
-  function isDraftModal() {
+  function showTargetedDraftModal(testId: string) {
     setShowDraftModal(!showDraftModal);
     setShowModal(true);
+    console.log(testId);
   }
+
+  //Figure out a way to use element ID, pass it for formEmail Componenet.
 
   return (
     <React.Fragment>
@@ -32,7 +35,8 @@ export default function DraftEmailComponent() {
       <div>
         {draftState.map((element) => {
           return (
-            <div onClick={isDraftModal}>
+            <div onClick={() => showTargetedDraftModal(element.id)}>
+              <div>{element.id}</div>
               <div>{element.nameOfSender}</div>
               <div>{element.titleOfEmail}</div>
               <div>{element.bodyMessage}</div>

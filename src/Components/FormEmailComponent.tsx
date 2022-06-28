@@ -4,6 +4,7 @@ import { DebounceInput } from "react-debounce-input";
 import shallow from "zustand/shallow";
 import { sentStore, draftStore, ModalAction } from "./zustand";
 import { v4 as uuidv4 } from "uuid";
+import { useLocation } from "react-router-dom";
 
 interface LocalEmail {
   nameOfSender: string;
@@ -12,6 +13,11 @@ interface LocalEmail {
 }
 
 type L = keyof LocalEmail;
+
+function usePageViews() {
+  let location = useLocation();
+  if (location.pathname === "/draftPage") return true;
+}
 
 export default function FormemailComponent(props: ModalAction) {
   const { sentStateArr, checkState } = sentStore(
@@ -38,6 +44,9 @@ export default function FormemailComponent(props: ModalAction) {
   const [emailForm, setEmailForm] = useState(emailInitalState);
   const [emailError, setEmailError] = useState(emailInitalErrorState);
   const [emailDraft, setEmailDraft] = useState(emailInitalDraft);
+
+  let checkPage = usePageViews();
+  console.log(checkPage);
 
   //Sends State to Zustand State Management
   function handleEmailAddress(emailAddressValue: string) {
@@ -67,6 +76,10 @@ export default function FormemailComponent(props: ModalAction) {
   //Modal Stuff
   function handleSetShow() {
     props.setShow(false);
+  }
+
+  function test() {
+    return "this is a string";
   }
 
   //This returns errors object and will be used in handleEmailData to update errorState
@@ -157,7 +170,7 @@ export default function FormemailComponent(props: ModalAction) {
         titleOfEmail: emailForm.titleOfEmail,
         bodyMessage: emailForm.bodyMessage,
         dateOfMessage: "",
-        isAttachment: ""
+        isAttachment: "",
       });
       handleSetShow();
     } else {
@@ -210,7 +223,7 @@ export default function FormemailComponent(props: ModalAction) {
       titleOfEmail: emailForm.titleOfEmail,
       bodyMessage: emailForm.bodyMessage,
       dateOfMessage: "",
-      isAttachment: ""
+      isAttachment: "",
     });
 
     //RESET STATE ON SUBMIT
@@ -235,7 +248,7 @@ export default function FormemailComponent(props: ModalAction) {
     <Form noValidate onSubmit={handleEmailData}>
       <Form.Group>
         <DebounceInput
-          value={emailForm.nameOfSender}
+          value={checkPage ? test() : ""}
           type="email"
           placeholder="Email Sending To"
           debounceTimeout={1000}
@@ -249,7 +262,7 @@ export default function FormemailComponent(props: ModalAction) {
       </Form.Group>
       <Form.Group>
         <DebounceInput
-          value={emailForm.titleOfEmail}
+          value={checkPage ? test() : ""}
           element="input"
           rows="7"
           placeholder="Email Subject"
@@ -264,7 +277,7 @@ export default function FormemailComponent(props: ModalAction) {
       </Form.Group>
       <Form.Group>
         <DebounceInput
-          value={emailForm.bodyMessage}
+          value={checkPage ? test() : ""}
           element="textarea"
           cols="60"
           rows="7"
@@ -361,3 +374,32 @@ export default function FormemailComponent(props: ModalAction) {
 //Loop thru Obj Key:Value
 //Check if value.length > 0 && some regex stuff to match
 //if all 3 items pass, then trigger sentStateArr(emailForm)
+
+/*
+
+  check to see if in draftPage
+  if in draft page, check the draftArray
+  onClick populate modal pre fill from draftArray
+
+
+
+
+
+
+
+
+  import * as React from 'react';
+import { useLocation } from 'react-router-dom';
+
+function App() {
+  let location = useLocation();
+
+  React.useEffect(() => {
+    ga('send', 'pageview');
+  }, [location]);
+
+  return (
+    // ...
+  );
+}
+ */
