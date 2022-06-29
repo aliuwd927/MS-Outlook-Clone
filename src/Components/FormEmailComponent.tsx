@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { DebounceInput } from "react-debounce-input";
 import shallow from "zustand/shallow";
-import { sentStore, draftStore, ModalAction } from "./zustand";
+import { sentStore, draftStore, ModalAction, valueInputField } from "./zustand";
 import { v4 as uuidv4 } from "uuid";
 import { useLocation } from "react-router-dom";
 
@@ -29,6 +29,10 @@ export default function FormemailComponent(props: ModalAction) {
   );
 
   const draftStoreArr = draftStore((state) => state.setDraftStateArray);
+  const { chkElementId, restSetElementId } = valueInputField((state) => ({
+    chkElementId: state.id,
+    restSetElementId: state.setElementId,
+  }));
 
   //Email Inital State
   const emailInitalState = {
@@ -46,7 +50,7 @@ export default function FormemailComponent(props: ModalAction) {
   const [emailDraft, setEmailDraft] = useState(emailInitalDraft);
 
   let checkPage = usePageViews();
-  console.log(checkPage);
+  //console.log(checkPage);
 
   //Sends State to Zustand State Management
   function handleEmailAddress(emailAddressValue: string) {
@@ -78,8 +82,57 @@ export default function FormemailComponent(props: ModalAction) {
     props.setShow(false);
   }
 
-  function test() {
-    return "this is a string";
+  //Reset State for Draft to Render.
+  function handleResetDraftRender() {
+    restSetElementId("");
+  }
+
+  const draftState = draftStore((state) => state.draftStateArray);
+
+  function valueNameOfSender() {
+    //this pulls from element id
+    //
+    //console.log(draftState);
+    //uses another State mgt, to match draftState and return the draftState Values.
+
+    //Iterate draftState
+    //use chkElementId
+    //if chkElementId === draftState.id
+    //return that item
+    const valueOfSender = draftState.find((element) => {
+      if (element.id === chkElementId) {
+        return element.nameOfSender;
+      } else {
+        return null;
+      }
+    });
+    return valueOfSender?.nameOfSender;
+  }
+
+  function valueTitleOfEmail() {
+    //this pulls from element id
+    //
+    const valueOfTitle = draftState.find((element) => {
+      if (element.id === chkElementId) {
+        return element;
+      } else {
+        return null;
+      }
+    });
+    return valueOfTitle?.titleOfEmail;
+  }
+
+  function valueBodyOfMessage() {
+    //this pulls from element id
+    //
+    const valueOfBody = draftState.find((element) => {
+      if (element.id === chkElementId) {
+        return element;
+      } else {
+        return null;
+      }
+    });
+    return valueOfBody?.bodyMessage;
   }
 
   //This returns errors object and will be used in handleEmailData to update errorState
@@ -248,7 +301,7 @@ export default function FormemailComponent(props: ModalAction) {
     <Form noValidate onSubmit={handleEmailData}>
       <Form.Group>
         <DebounceInput
-          value={checkPage ? test() : ""}
+          value={checkPage ? valueNameOfSender() : ""}
           type="email"
           placeholder="Email Sending To"
           debounceTimeout={1000}
@@ -262,7 +315,7 @@ export default function FormemailComponent(props: ModalAction) {
       </Form.Group>
       <Form.Group>
         <DebounceInput
-          value={checkPage ? test() : ""}
+          value={checkPage ? valueTitleOfEmail() : ""}
           element="input"
           rows="7"
           placeholder="Email Subject"
@@ -277,7 +330,7 @@ export default function FormemailComponent(props: ModalAction) {
       </Form.Group>
       <Form.Group>
         <DebounceInput
-          value={checkPage ? test() : ""}
+          value={checkPage ? valueBodyOfMessage() : ""}
           element="textarea"
           cols="60"
           rows="7"
@@ -292,7 +345,13 @@ export default function FormemailComponent(props: ModalAction) {
         <br />
         <span>{emailError.bodyMessage}</span>
       </Form.Group>
-      <Button variant="secondary" onClick={handleSetShow}>
+      <Button
+        variant="secondary"
+        onClick={() => {
+          handleSetShow();
+          handleResetDraftRender();
+        }}
+      >
         Close
       </Button>
       <Button variant="primary" type="submit">
@@ -402,4 +461,7 @@ function App() {
     // ...
   );
 }
+
+
+
  */

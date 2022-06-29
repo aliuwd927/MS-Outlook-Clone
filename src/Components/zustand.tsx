@@ -47,6 +47,11 @@ export interface DraftState {
   setDraftStateArray: (arr: UpdateState) => void;
 }
 
+export interface valueInputIntface {
+  id: string;
+  setElementId: (strId: string) => void;
+}
+
 //RightSecond Email Dispatch Updating State
 export const rightSectionDispatch = create<UpdateState & Actions>((set) => ({
   id: "",
@@ -131,6 +136,14 @@ export const sentStore = create<SentState>((set) => ({
   },
 }));
 
+export const valueInputField = create<valueInputIntface>((set) => ({
+  id: "",
+  setElementId: (strId) => {
+    set(() => ({
+      id: strId,
+    }));
+  },
+}));
 /*
 
 creekburn: I have 2 ideas for how to managed this. Have 2 lists, and move items between them.

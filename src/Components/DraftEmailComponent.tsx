@@ -1,4 +1,4 @@
-import { draftStore, modalStatus } from "./zustand";
+import { draftStore, modalStatus, valueInputField } from "./zustand";
 import ModalComponent from "./ModalComponent";
 import React, { useState } from "react";
 import shallow from "zustand/shallow";
@@ -7,6 +7,7 @@ import shallow from "zustand/shallow";
 
 export default function DraftEmailComponent() {
   const draftState = draftStore((state) => state.draftStateArray);
+  const inputFieldValue = valueInputField((state) => state.setElementId);
 
   const { showModal, setShowModal } = modalStatus(
     (state) => ({
@@ -18,13 +19,18 @@ export default function DraftEmailComponent() {
 
   const [showDraftModal, setShowDraftModal] = useState(false);
 
-  function showTargetedDraftModal(testId: string) {
+  function showTargetedDraftModal() {
     setShowDraftModal(!showDraftModal);
     setShowModal(true);
-    console.log(testId);
   }
 
   //Figure out a way to use element ID, pass it for formEmail Componenet.
+  //State CANNOT be an array. Must only take one in Element iD a time.
+  //Our Modal will block us from clicking other drafts ,so no need to worry.
+
+  function sendElementId(chkElId: string) {
+    inputFieldValue(chkElId);
+  }
 
   return (
     <React.Fragment>
@@ -35,7 +41,12 @@ export default function DraftEmailComponent() {
       <div>
         {draftState.map((element) => {
           return (
-            <div onClick={() => showTargetedDraftModal(element.id)}>
+            <div
+              onClick={() => {
+                showTargetedDraftModal();
+                sendElementId(element.id);
+              }}
+            >
               <div>{element.id}</div>
               <div>{element.nameOfSender}</div>
               <div>{element.titleOfEmail}</div>
