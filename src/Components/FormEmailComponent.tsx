@@ -211,7 +211,6 @@ export default function FormemailComponent(props: ModalAction) {
     const errors = formValidator({ ...emailForm });
     //console.log(errors);
     console.log(!!errors);
-
     //By setting this to false, it lets us know all fields are filled
     // When True, it means that emptyFields are indeed empty
     if (!errors) {
@@ -226,6 +225,11 @@ export default function FormemailComponent(props: ModalAction) {
         isAttachment: "",
       });
       handleSetShow();
+    } else if (errors) {
+      //Updates Draft State based of previous DraftStateStore.
+      //use chkElementId to update THAT specific draft.
+      console.log(draftState);
+      console.log(chkElementId);
     } else {
       return;
     }
