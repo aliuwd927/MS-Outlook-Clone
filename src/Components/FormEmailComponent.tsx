@@ -28,7 +28,16 @@ export default function FormemailComponent(props: ModalAction) {
     shallow
   );
 
-  const draftStoreArr = draftStore((state) => state.setDraftStateArray);
+  //const draftStoreArr = draftStore((state) => state.setDraftStateArray);
+  //const draftState = draftStore((state) => state.draftStateArray);
+
+  const { draftStoreArr, draftState } = draftStore(
+    (state) => ({
+      draftStoreArr: state.setDraftStateArray,
+      draftState: state.draftStateArray,
+    }),
+    shallow
+  );
   const { chkElementId, restSetElementId } = valueInputField((state) => ({
     chkElementId: state.id,
     restSetElementId: state.setElementId,
@@ -87,7 +96,7 @@ export default function FormemailComponent(props: ModalAction) {
     restSetElementId("");
   }
 
-  const draftState = draftStore((state) => state.draftStateArray);
+  //const draftState = draftStore((state) => state.draftStateArray);
 
   function valueNameOfSender() {
     //this pulls from element id
@@ -228,11 +237,41 @@ export default function FormemailComponent(props: ModalAction) {
     } else if (errors) {
       //Updates Draft State based of previous DraftStateStore.
       //use chkElementId to update THAT specific draft.
+      //using chkElmentId create a function that updates each field.
       console.log(draftState);
       console.log(chkElementId);
+      draftState.forEach((elements, index) => {
+        console.log(typeof elements.id);
+        console.log(elements.id === chkElementId);
+        console.log(index);
+        if (elements.id === chkElementId) {
+          // console.log(elements.bodyMessage);
+          // console.log((elements.bodyMessage = emailForm.bodyMessage));
+          // console.log(elements.bodyMessage);
+          //draftStore sets the array
+          //draftState is an Array
+          //Both belong to DraftStore Object in Zustand
+          console.log(draftState[index]);
+          draftState.splice(index, 1);
+          console.log(draftState);
+          draftStoreArr({
+            id: elements.id,
+            profilePicture: "",
+            nameOfSender: emailForm.nameOfSender,
+            titleOfEmail: emailForm.titleOfEmail,
+            bodyMessage: emailForm.bodyMessage,
+            dateOfMessage: "",
+            isAttachment: "",
+          });
+        }
+      });
     } else {
       return;
     }
+  }
+
+  function updateDraft() {
+    console.log();
   }
 
   //Handle Email Data, when Form Submits
@@ -469,3 +508,16 @@ function App() {
 
 
  */
+
+/*
+ draftState.map((elements) => {
+        console.log(typeof elements.id);
+        console.log(elements.id === chkElementId);
+        if (elements.id === chkElementId) {
+          console.log(elements.bodyMessage);
+          console.log((elements.bodyMessage = emailForm.bodyMessage));
+          console.log(elements.bodyMessage);
+        }
+      });
+
+*/
